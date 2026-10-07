@@ -1,0 +1,55 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+
+# Private visual references — kept locally for comparison, never published.
+# REFERENCE_MANIFEST.md stays tracked.
+ref/*.jpg
+ref/*.jpeg
+ref/*.png
+ref/*.webp
+
+# Local backups and QA captures (kept on disk, never committed)
+backups/
+qa/screenshots/
+qa/comparisons/
+
+# Generation drafts — only approved, optimised assets are committed
+public/assets/drafts/
+public/assets/motion-tests/
+assets-drafts/
+motion-tests/
+*.draft.*
+unapproved/
+
+# Scratch and temporary files
+tmp/
+temp/
+scratch/
+*.tmp
+*.log
+
+# Browser caches and tool state
+.cache/
+.chrome-profile/
+.playwright/
+
+# Credentials and environment secrets
+.env
+.env.*
+*.local
+*.pem
+*.key
+secrets/
+.mcp.json
+
+# OS / editor noise
+.DS_Store
+.vscode/
+.idea/
+
+# Local tool configuration
+.claude/

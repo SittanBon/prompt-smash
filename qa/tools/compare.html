@@ -1,0 +1,16 @@
+<!doctype html>
+<!-- QA helper: side-by-side reference vs implementation. Usage:
+     compare.html?ref=../../ref/ref3.jpg&impl=../screenshots/x.png&label=v1 -->
+<html><head><meta charset="utf-8"><style>
+  body{margin:0;background:#222;color:#eee;font:600 22px/1.3 system-ui,sans-serif}
+  .row{display:flex;gap:24px;padding:24px;align-items:flex-start}
+  figure{margin:0;flex:1}
+  figcaption{margin-bottom:10px}
+  img{width:100%;display:block;outline:1px solid #555}
+</style></head><body><div class="row">
+<figure><figcaption>Reference: ref/ref3.jpg (primary)</figcaption><img id="r"></figure>
+<figure><figcaption id="c">Implementation</figcaption><img id="i"></figure>
+</div><script>
+const q=new URLSearchParams(location.search);
+r.src=q.get('ref');i.src=q.get('impl');c.textContent='Implementation '+(q.get('label')||'')+' (1920×1080 viewport)';
+</script></body></html>

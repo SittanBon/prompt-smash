@@ -1,0 +1,195 @@
+.hero {
+  /* The display size drives the whole composition so the burger/headline
+     relationship from ref3.jpg holds at every viewport. */
+  --display-size: var(--text-display);
+  --burger-w: calc(var(--display-size) * 1.75);
+  --burger-top: calc(var(--display-size) * 0.12);
+  --burger-overhang: calc(var(--display-size) * 0.38);
+  --teaser-peek: clamp(3rem, 8svh, 6rem);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  min-height: calc(100svh - 5.25rem - var(--teaser-peek));
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: clamp(0.75rem, 0.25rem + 1.5svh, 2rem) var(--gutter) clamp(1.5rem, 1rem + 2svh, 3rem);
+}
+
+/* --- Stage: headline and burger share one grid cell --- */
+.hero__stage {
+  display: grid;
+  justify-items: center;
+}
+
+.hero__stage > * {
+  grid-area: 1 / 1;
+}
+
+.hero__display {
+  z-index: 0;
+  display: grid;
+  justify-items: center;
+  align-self: start; /* don't stretch to the burger's height */
+  align-content: start;
+  font-family: var(--font-display);
+  font-size: var(--display-size);
+  font-weight: 700;
+  line-height: 0.84;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-ink-display);
+  user-select: none;
+}
+
+.hero__display-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero__burger {
+  position: relative;
+  z-index: 1;
+  width: var(--burger-w);
+  max-width: 100%;
+  margin-top: var(--burger-top);
+  margin-bottom: calc(var(--burger-overhang) * -1);
+  align-self: start;
+}
+
+.hero__badge {
+  position: absolute;
+  top: 3%;
+  right: -9%;
+}
+
+/* --- Footer: intro | scroll cue (under the burger) | journey cards --- */
+.hero__footer {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) calc(var(--burger-w) * 0.8) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-xl);
+}
+
+.hero__intro {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+}
+
+.hero__headline {
+  max-width: 18ch;
+  text-wrap: balance;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1rem + 1.4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.hero__supporting {
+  max-width: 34ch;
+  color: var(--color-ink-soft);
+  font-size: var(--text-lg);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.hero__journeys {
+  justify-self: end;
+  width: min(100%, 34rem);
+}
+
+.scroll-cue {
+  justify-self: center;
+  align-self: end;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-soft);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.scroll-cue:hover {
+  color: var(--color-ink);
+}
+
+/* --- Laptop / tablet: burger no longer overhangs into a 3-column footer --- */
+@media (max-width: 74.99rem) {
+  .hero {
+    --burger-overhang: 0px;
+  }
+
+  .hero__footer {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      'cue cue'
+      'intro journeys';
+  }
+
+  .scroll-cue {
+    grid-area: cue;
+    order: -1;
+  }
+
+  .hero__intro { grid-area: intro; }
+  .hero__journeys { grid-area: journeys; }
+}
+
+/* --- Mobile: re-composed, not scaled down. Line one stays fully readable,
+       the burger sits lower and overlaps only the second line. --- */
+@media (max-width: 47.99rem) {
+  .hero {
+    --display-size: clamp(3.25rem, 20.5vw, 6rem);
+    --burger-w: min(68vw, 20rem);
+    /* Bun crown tucks under the lower half of "SMASH!" so both words stay readable */
+    --burger-top: calc(var(--display-size) * 1.42);
+    --teaser-peek: 2.5rem;
+    min-height: 0;
+  }
+
+  .hero__badge {
+    top: -4%;
+    right: -3%;
+  }
+
+  .hero__footer {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'intro'
+      'journeys'
+      'cue';
+    gap: var(--space-xl);
+  }
+
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .hero__journeys {
+    justify-self: stretch;
+    width: 100%;
+  }
+}

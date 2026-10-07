@@ -1,0 +1,7 @@
+<!doctype html>
+<!-- QA helper: renders a page inside an exact-size iframe, because headless
+     Chrome cannot shrink its window below ~500px. Usage: frame.html?src=URL&w=390&h=844 -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:#fff}iframe{border:0;display:block;margin:0 auto}</style></head>
+<body><iframe id="f"></iframe><script>
+const q=new URLSearchParams(location.search);f.width=q.get('w');f.height=q.get('h');f.src=q.get('src');
+</script></body></html>
