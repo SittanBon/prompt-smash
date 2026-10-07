@@ -1,6 +1,6 @@
 # Prompt Smash!
 
-An interactive, cinematic prompting handbook that teaches how to build effective AI prompts through a hamburger metaphor. The first journey is **Hamburger — Prompt Design**.
+An interactive, cinematic prompting handbook that teaches how to build effective AI prompts through a hamburger metaphor. It has four journeys: **Hamburger — Prompt Design**, **Crispy Chicken Burger — Prompt Engineering**, **Bacon Cheese Burger — Text-to-Image** and **Chilli Cheese Burger — Text-to-Code**. All written content exists; the interactive interface is not built yet.
 
 ## Stack
 
@@ -19,7 +19,7 @@ npm run content:render  # regenerate content/*.md from the TypeScript content
 npm run content:check   # check the content rules and that content/*.md is up to date
 ```
 
-The content scripts need Node 22.18 or newer, for built-in TypeScript support.
+**Node.js:** Node 24 is the recommended version for development and for the future CI workflow (`.nvmrc`). Node 22.18 is the minimum supported version (`engines` in `package.json`), because the content scripts use Node's built-in TypeScript type stripping.
 
 ## Project structure
 
@@ -68,6 +68,7 @@ All text uses **Jost** (SIL Open Font License 1.1). The site bundles it through 
 | `src/data/schema.ts` | TypeScript content schema for all four journeys |
 | `src/data/framework.ts` | Fixed definitions: seven layers, BITE, safety checks, anchor use cases, shared review copy |
 | `src/data/journeys/*.ts` | **Source of truth** for each journey's content pack |
+| `src/data/sharedContent.ts`, `src/data/sharedSchema.ts` | **Source of truth** and types for the shared chapters (welcome, BITE, responsible AI, case study, glossary, about, privacy, accessibility, disclaimer, footer, errors, global microcopy) |
 | `src/data/promptAssembly.ts` | Live-prompt assembly rules, microcopy and the pure `assemblePrompt` function |
 | `content/*.md` | Editorial versions, **generated** from the journey files. Never edit them by hand. |
 | `content/tests/` | Illustrative prompt-test reports |

@@ -15,12 +15,38 @@ import { UNIVERSAL_LAYERS, BITE, SAFETY_CHECKS, BITE_LIMITS, REVIEW_DISCLAIMER, 
 import { ASSEMBLY_RULES, ASSEMBLY_MICROCOPY, assembleExamplePrompt, assemblePrompt } from '../src/data/promptAssembly.ts';
 import { hamburger } from '../src/data/journeys/hamburger.ts';
 import { crispyChicken } from '../src/data/journeys/crispyChicken.ts';
+import { baconCheese } from '../src/data/journeys/baconCheese.ts';
+import { chilliCheese } from '../src/data/journeys/chilliCheese.ts';
+import { sharedContent, CASE_STUDY_NOTICE } from '../src/data/sharedContent.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const JOURNEYS = [
   { data: hamburger, file: 'content/hamburger-prompt-design.md', minExercises: 4 },
   { data: crispyChicken, file: 'content/crispy-chicken-prompt-engineering.md', minExercises: 8 },
+  { data: baconCheese, file: 'content/bacon-cheese-text-to-image.md', minExercises: 6 },
+  { data: chilliCheese, file: 'content/chilli-cheese-text-to-code.md', minExercises: 6 },
 ];
+const SHARED_FILE = 'content/shared-handbook.md';
+
+/** Pro topics each new journey must cover somewhere in its content (Numbered Prompt 7, Parts C and D). */
+const REQUIRED_TOPICS = {
+  'bacon-cheese': ['camera angle', 'shot size', 'lens', 'composition', 'lighting direction', 'colour palette', 'reference', 'must not change', 'variation strategy', 'misspell', 'iterative visual critique', 'stereotype', 'synthetic people', 'deepfake', 'metadata', 'copyright', 'transparen', 'background-removal'],
+  'chilli-cheese': ['sample input', 'edge case', 'acceptance criteri', 'error handling', 'tests', 'versions', 'existing code', 'incremental', 'patch', 'security review', 'accessib', 'plan → implement → test → repair', 'repository', 'tool output', 'invent packages', 'secret', 'review before running'],
+};
+
+/**
+ * No overclaiming (Constitution §14): in the new content, every “guarantee”
+ * must be negated nearby (“not”, “cannot”, “never”, “does not”…).
+ */
+function overclaims(value, where) {
+  const text = JSON.stringify(value);
+  const found = [];
+  for (const m of text.matchAll(/guarantee|eliminat|prevents?\b/gi)) {
+    const before = text.slice(Math.max(0, m.index - 60), m.index).toLowerCase();
+    if (!/(not|cannot|never|n’t|n't|no|without)\b[^.]*$/.test(before)) found.push(`${where}: possible overclaim near “…${text.slice(Math.max(0, m.index - 40), m.index + 20)}…”`);
+  }
+  return found;
+}
 
 /* ------------------------------------------------------------------ */
 /* Validation                                                          */
@@ -71,6 +97,13 @@ function validate(j, minExercises) {
     if (/hidden (chain|reasoning)/i.test(JSON.stringify(lab)) && !/not ask for private or hidden/i.test(JSON.stringify(lab)))
       err('Technique Lab must not request hidden reasoning');
   }
+  if (REQUIRED_TOPICS[j.id]) {
+    const text = JSON.stringify(j).toLowerCase();
+    for (const t of REQUIRED_TOPICS[j.id]) if (!text.includes(t)) err(`required Pro topic not covered: "${t}"`);
+    if (!j.journeyMicrocopy || Object.keys(j.journeyMicrocopy).length < 8) err('needs journey-specific interface microcopy');
+    overclaims(j, j.id).forEach(err);
+  }
+  if (j.workedExample.exampleOutput.kind === 'image-description' && !j.workedExample.exampleOutput.alt) err('image description needs alt text');
   for (const b of BITE) if (!j.bite[b.key]) err(`missing BITE check "${b.key}"`);
   if (!j.bite.taste.notNeeded || !j.bite.taste.stateCopy.notNeeded) err('Taste needs Not-needed content');
   for (const c of SAFETY_CHECKS) if (!j.responsibleAi[c.key]) err(`missing responsible-AI check "${c.key}"`);
@@ -180,6 +213,7 @@ ${x.modelAnswer ? `\n**Model answer (one good version):**\n\n${fence(x.modelAnsw
 `;
 }
 
+const SOURCE_FILE = { hamburger: 'hamburger.ts', 'crispy-chicken': 'crispyChicken.ts', 'bacon-cheese': 'baconCheese.ts', 'chilli-cheese': 'chilliCheese.ts' };
 const NEXT_TITLE = {
   'crispy-chicken': 'Crispy Chicken Burger — Prompt Engineering',
   'bacon-cheese': 'Bacon Cheese Burger — Text-to-Image',
@@ -283,7 +317,7 @@ function render(j) {
   const full = assembleExamplePrompt(j.layers);
   const noStyle = assembleExamplePrompt(j.layers, [], { style: j.bite.taste.notNeeded.exampleReason });
 
-  return `<!-- GENERATED FILE — do not edit. Source of truth: src/data/journeys/${j.id}.ts
+  return `<!-- GENERATED FILE — do not edit. Source of truth: src/data/journeys/${SOURCE_FILE[j.id]}
      Regenerate with \`npm run content:render\`; \`npm run content:check\` fails if this file is stale. -->
 
 # ${j.title}
@@ -378,7 +412,7 @@ ${fence(full.text)}
 *${w.exampleOutput.illustrativeLabel}*
 
 ${w.exampleOutput.content}
-
+${w.exampleOutput.kind === 'image-description' ? `\n*Planned alt text:* ${w.exampleOutput.alt}\n` : ''}
 ${
   w.testCycle
     ? `### Test cycle: test → failure → one change → retest
@@ -494,7 +528,244 @@ ${modeText(j.completionSummary.takeaway)}
 
 **Planned actions:** ${j.completionSummary.actions.join(' · ')}
 
-**Recommended next journey:** ${NEXT_TITLE[j.nextJourney] ?? 'None'}. ${j.completionSummary.nextJourneyPitch}
+${j.nextJourney ? `**Recommended next journey:** ${NEXT_TITLE[j.nextJourney]}. ` : '**Next:** '}${j.completionSummary.nextJourneyPitch}
+${
+  j.journeyMicrocopy
+    ? `
+---
+
+## Journey interface microcopy
+
+| Situation | Copy |
+|---|---|
+${Object.entries(j.journeyMicrocopy).map(([k, v]) => `| ${k} | ${v} |`).join('\n')}
+`
+    : ''
+}`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared handbook                                                     */
+/* ------------------------------------------------------------------ */
+
+const REQUIRED_GLOSSARY = ['Prompt', 'Model', 'Input', 'Output', 'Context', 'Token', 'Zero-shot', 'One-shot', 'Few-shot', 'Evaluation', 'Hallucination', 'Prompt injection', 'Bias', 'Personal data', 'Human review', 'Prompt chain', 'Acceptance criteria'];
+const REQUIRED_MICROCOPY = ['chooseBurger', 'changeBurger', 'startJourney', 'continue', 'previous', 'next', 'openLearnMore', 'closeLearnMore', 'simpleSelected', 'proSelected', 'required', 'recommended', 'optional', 'notNeeded', 'needsAttention', 'actionAdded', 'notRelevant', 'promptCopied', 'copyFailed', 'downloadStarted', 'savedLocally', 'localSaveFailed', 'clearSavedWork', 'resetConfirmation', 'exerciseCorrect', 'exerciseNeedsAnotherLook', 'journeyCompleted', 'buildAnotherPrompt', 'continueToNextBurger', 'reducedMotion', 'invalidSharedLink'];
+
+function validateShared(sc) {
+  const errors = [];
+  const err = (m) => errors.push(`shared: ${m}`);
+  if (/TODO/.test(JSON.stringify(sc))) err('contains unfinished TODO content');
+  for (const b of BITE) if (!sc.bite.letters[b.key]) err(`BITE chapter missing "${b.key}"`);
+  for (const c of SAFETY_CHECKS) {
+    const x = sc.responsibleAi.checks[c.key];
+    if (!x) { err(`responsible-AI chapter missing "${c.key}"`); continue; }
+    if (words(x.simpleDefinition) > 25) err(`${c.key}: Simple definition over 25 words`);
+    for (const f of ['proExplanation', 'correctiveAction', 'promptLevelControl', 'workflowLevelControl', 'notRelevantWhen', 'notRelevantExample'])
+      if (!x[f]) err(`${c.key}: missing ${f}`);
+    if (!x.warningSigns.length) err(`${c.key}: needs warning signs`);
+  }
+  const terms = sc.glossary.map((g) => g.term);
+  for (const t of REQUIRED_GLOSSARY) if (!terms.includes(t)) err(`glossary missing "${t}"`);
+  for (const g of sc.glossary) if (words(g.simple) > 25) err(`glossary "${g.term}": Simple definition over 25 words`);
+  for (const k of REQUIRED_MICROCOPY) if (!sc.globalMicrocopy[k]) err(`global microcopy missing "${k}"`);
+  const cs = sc.caseStudy;
+  if (cs.steps.length !== 9) err('case study needs exactly 9 steps');
+  if (!cs.reconstructionNotice.includes(CASE_STUDY_NOTICE) || !cs.promptReconstruction.note.includes(CASE_STUDY_NOTICE)) err('case study must show the reconstruction notice');
+  for (const l of UNIVERSAL_LAYERS) if (!cs.promptReconstruction.layers[l.key]) err(`case-study reconstruction missing layer "${l.key}"`);
+  if (/\d+\s?%|€|\$|revenue|turnover/i.test(JSON.stringify(cs).replace(/No other company, client, revenue or performance claims are made\./, '')))
+    err('case study contains a number or financial claim that is not in the approved material');
+  if (sc.accessibility.status !== 'planned-until-ux-integration') err('accessibility features must stay marked as planned until built');
+  overclaims(sc, 'shared').forEach(err);
+  return errors;
+}
+
+const STATUS_NOTE = {
+  'describes-current-site': '',
+  'planned-until-ux-integration': '> *Status: describes planned behaviour. It becomes true when the interface is built and checked.*\n\n',
+};
+const sections = (list, level = '###') => list.map((x) => `${level} ${x.heading}\n${modeText(x.body)}`).join('\n\n');
+
+function renderShared(sc) {
+  const w = sc.welcome, b = sc.bite, r = sc.responsibleAi, cs = sc.caseStudy;
+  return `<!-- GENERATED FILE — do not edit. Source of truth: src/data/sharedContent.ts
+     Regenerate with \`npm run content:render\`; \`npm run content:check\` fails if this file is stale. -->
+
+# Prompt Smash! — Shared handbook
+
+*Every chapter outside the four burger journeys. Simple text comes first; “Pro adds” is shown after it in Pro mode, never instead of it.*
+
+---
+
+## 1. ${w.title}
+
+> ${w.lead}
+
+${sections(w.sections)}
+
+### ${w.demo.heading}
+**Before**
+
+> ${w.demo.weak}
+
+**After**
+
+${fence(w.demo.better)}
+
+What changed:
+${list(w.demo.whatChanged)}
+
+### ${w.selectHeading}
+${w.selectHelp}
+
+| Burger | Discipline | Card line |
+|---|---|---|
+${w.selectorCards.map((c) => `| ${c.burgerName} | ${c.discipline} | ${c.bestForLine} |`).join('\n')}
+
+---
+
+## 2. ${b.title}
+
+${modeText(b.intro)}
+
+${BITE.map((l) => `### ${l.letter} — ${l.name}: ${l.question}
+${modeText(b.letters[l.key].explanation)}
+
+*Tiny example:* ${b.letters[l.key].tinyExample}`).join('\n\n')}
+
+${sections([b.passVersusAttention, b.tasteNotNeeded, b.notCorrectOrSafe, b.layerConnection])}
+
+| Letter | Layers checked |
+|---|---|
+${BITE.map((l) => `| ${l.letter} — ${l.name} | ${l.layers.map(label).join(', ')} |`).join('\n')}
+
+**What BITE does and does not mean**
+${list(BITE_LIMITS)}
+
+---
+
+## 3. ${r.title}
+
+${modeText(r.intro)}
+
+${sections([r.reviewStates])}
+
+${SAFETY_CHECKS.map((c) => {
+  const x = r.checks[c.key];
+  return `### ${c.name}: ${c.question}
+**${x.simpleDefinition}**
+
+*Pro adds:* ${x.proExplanation}
+
+- **Warning signs:**
+${x.warningSigns.map((s) => `  - ${s}`).join('\n')}
+- **Corrective action:** ${x.correctiveAction}
+- **Prompt-level control:** ${x.promptLevelControl}
+- **Workflow or system-level control:** ${x.workflowLevelControl}
+- **“Not relevant” is legitimate when:** ${x.notRelevantWhen} *(Example reason: “${x.notRelevantExample}”)*`;
+}).join('\n\n')}
+
+${sections([r.promptVersusWorkflow, r.whyNotSwitchedOff])}
+
+*${r.disclaimer}*
+
+---
+
+## 4. ${cs.title}
+
+*${cs.subtitle}*
+
+> **${cs.reconstructionNotice}**
+
+${cs.steps.map((st) => `### ${st.heading}\n${st.body}`).join('\n\n')}
+
+### The prompt structure: ${cs.promptReconstruction.label}
+*${cs.promptReconstruction.note}*
+
+${fence(UNIVERSAL_LAYERS.map((l) => `${l.label}:\n${cs.promptReconstruction.layers[l.key]}`).join('\n\n'))}
+
+### Implemented in the project
+${list(cs.implementedInProject)}
+
+### ${cs.futureAgenticControls.heading}
+*Not part of the project. These are recommendations for a future workflow in which an AI agent can take actions.*
+
+${list(cs.futureAgenticControls.items)}
+
+*${cs.attribution}*
+
+---
+
+## 5. Glossary
+
+| Term | Simple | Pro adds |
+|---|---|---|
+${sc.glossary.map((g) => `| **${g.term}** | ${g.simple} | ${g.pro} |`).join('\n')}
+
+---
+
+## 6. ${sc.about.title}
+
+${sc.about.intro}
+
+${STATUS_NOTE[sc.about.status]}${sections(sc.about.sections)}
+
+---
+
+## 7. ${sc.privacy.title}
+
+${sc.privacy.intro}
+
+${STATUS_NOTE[sc.privacy.status]}${sections(sc.privacy.sections)}
+
+---
+
+## 8. ${sc.accessibility.title}
+
+${sc.accessibility.intro}
+
+${STATUS_NOTE[sc.accessibility.status]}*${sc.accessibility.plannedNote}*
+
+${sc.accessibility.features.map((f) => `- **${f.name}:** ${f.description}`).join('\n')}
+
+${sc.accessibility.contact}
+
+---
+
+## 9. ${sc.disclaimer.title}
+
+${list(sc.disclaimer.points)}
+
+**Footer note:** ${sc.disclaimer.footerNote}
+
+---
+
+## 10. Footer, invalid states and 404
+
+### Footer
+${sc.footerAndErrors.footer.navigation.map((n) => `- ${n.label} → \`${n.route}\``).join('\n')}
+
+${sc.footerAndErrors.footer.copyright}
+
+*${sc.footerAndErrors.footer.disclaimerNote}*
+
+${['invalidJourney', 'invalidLayer', 'notFound']
+  .map((k) => {
+    const e = sc.footerAndErrors[k];
+    return `### ${k === 'notFound' ? '404' : k === 'invalidJourney' ? 'Invalid journey' : 'Invalid layer'}\n**${e.heading}**\n\n${e.body}\n\n**[${e.action}]**`;
+  })
+  .join('\n\n')}
+
+**Return-home action:** ${sc.footerAndErrors.returnHome}
+
+---
+
+## Global microcopy
+
+*The same action always uses the same verb. \`{{filename}}\` and \`{{burger}}\` are filled in by the interface.*
+
+| Situation | Copy |
+|---|---|
+${Object.entries(sc.globalMicrocopy).map(([k, v]) => `| ${k} | ${v} |`).join('\n')}
 `;
 }
 
@@ -502,13 +773,15 @@ ${modeText(j.completionSummary.takeaway)}
 
 const mode = process.argv[2] ?? 'check';
 let failed = false;
-for (const { data, file, minExercises } of JOURNEYS) {
-  const errors = validate(data, minExercises);
+const UNITS = [
+  ...JOURNEYS.map(({ data, file, minExercises }) => ({ id: data.id, file, source: SOURCE_FILE[data.id], errors: validate(data, minExercises), md: render(data) })),
+  { id: 'shared', file: SHARED_FILE, source: 'sharedContent.ts', errors: validateShared(sharedContent), md: renderShared(sharedContent) },
+];
+for (const { id, file, source, errors, md } of UNITS) {
   if (errors.length) {
     failed = true;
     console.error(errors.map((e) => `✗ ${e}`).join('\n'));
   }
-  const md = render(data);
   const path = join(root, file);
   if (mode === 'render') {
     mkdirSync(dirname(path), { recursive: true });
@@ -522,8 +795,8 @@ for (const { data, file, minExercises } of JOURNEYS) {
     if (current !== md) {
       failed = true;
       console.error(`✗ ${file} is out of date — run: npm run content:render`);
-    } else console.log(`✓ ${file} matches ${data.id}.ts`);
+    } else console.log(`✓ ${file} matches ${source}`);
   }
-  if (!errors.length) console.log(`✓ ${data.id}: Constitution checks passed`);
+  if (!errors.length) console.log(`✓ ${id}: Constitution checks passed`);
 }
 process.exit(failed ? 1 : 0);

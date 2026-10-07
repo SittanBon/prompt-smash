@@ -150,8 +150,9 @@ export type SevenLayers = [
 
 /** Shown in the result step, always labelled as an example. */
 export interface ExampleOutput {
-  kind: 'text' | 'image' | 'code';
-  /** Text or code body, or an image path under public/assets/. */
+  /** 'image-description': a written description of an image that was not generated (Bacon Cheese). */
+  kind: 'text' | 'image' | 'image-description' | 'code';
+  /** Text or code body, an image path under public/assets/, or an image description. */
   content: string;
   /** Required when kind is 'image'. */
   alt?: string;
@@ -430,6 +431,9 @@ export interface JourneyContent {
   exercises: Exercise[];
   bite: BiteReview;
   responsibleAi: ResponsibleAiReview;
+
+  /** Optional: interface copy specific to this journey (Bacon Cheese, Chilli Cheese). Keys are stable ids. */
+  journeyMicrocopy?: Record<string, string>;
 
   completionSummary: {
     headline: string;

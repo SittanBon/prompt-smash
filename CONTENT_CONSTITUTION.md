@@ -254,19 +254,20 @@ These are teaching examples, not limits on what each burger can be used for.
 **How the layers apply to each discipline.** These are draft guidance notes, so content writers apply the seven layers the same way:
 
 - **Prompt Engineering:** the layers describe the prompt being engineered. Engineering adds test cases, evaluation criteria and versioning, stored as the journey's `evaluation` plan and taught through techniques and exercises, never as an eighth layer. Iteration results come from illustrative test runs (one model, a few runs) or are clearly labelled as descriptions. They are never claimed as measurements or benchmarks.
-- **Text-to-Image:**
-  - *Task* is the subject and action.
-  - *Context/Input* is any reference material.
-  - *Requirements/Details* are composition, lighting, camera and other details.
-  - *Style/Quality* is the art direction.
-  - *Output Format* is the aspect ratio, resolution and file use.
-  - *Rules/Boundaries* are exclusions, rights and likeness limits.
-- **Text-to-Code:**
-  - *Context/Input* is the existing code, stack and constraints.
-  - *Requirements/Details* are the acceptance criteria and required tests.
-  - *Style/Quality* covers code style, readability and accessibility standards.
-  - *Output Format* is the files, diff or explanation required.
-  - *Rules/Boundaries* include "don't add dependencies" and "don't touch the auth code".
+- **Text-to-Image** (as confirmed in Numbered Prompt 7):
+  - *Goal* is the image's purpose and audience.
+  - *Task* is generate, edit, extend or create a variation.
+  - *Context/Input* is the scene, how the image will be used and any approved reference material, including what must be preserved.
+  - *Requirements/Details* are the subject, action, ingredients, setting, composition, viewpoint, shot size and props.
+  - *Style/Quality* is the art direction: medium, mood, palette, lighting, material quality and level of realism.
+  - *Output Format* is orientation, aspect ratio, resolution, transparency and number of outputs.
+  - *Rules/Boundaries* are exclusions, identity and likeness limits, privacy, rights, unsafe representation and elements that must not change.
+- **Text-to-Code** (as confirmed in Numbered Prompt 7):
+  - *Context/Input* is the language, framework, versions, environment, existing code and relevant files.
+  - *Requirements/Details* are features, behaviour, states, data, interactions, edge cases and acceptance criteria.
+  - *Style/Quality* covers readability, maintainability, security and accessibility standards, and project conventions.
+  - *Output Format* is complete files, patches, code blocks, JSON, tests or explanations.
+  - *Rules/Boundaries* include dependency limits, files not to change, prohibited actions, secrets, data handling and destructive operations.
 
 ## 12. Saving and privacy (future behaviour)
 
