@@ -107,6 +107,8 @@ The layers keep the same order and meaning in every burger. The food may look di
   - **Things that must be included:** Requirements/Details.
   - **How polished it must be:** Style/Quality.
   - **Things that must not happen, change or be included:** Rules/Boundaries.
+  - **Tone markers, including words to avoid for tone reasons** (for example "no exclamation marks"): Style/Quality. Limits on facts, data, claims or actions: Rules/Boundaries.
+  - **Length limits** (word counts, number of items): Requirements/Details. Output Format names the structure only.
 - **Status labels** are shown to the learner exactly as "Required", "Recommended" or "Optional".
 - **An "Optional" layer is never a hidden one.** The learner chooses to skip it.
 - **The Wrapper is not a safety switch.** It holds the boundaries the prompt states. Copy shown at the Wrapper step: *"Rules and Boundaries tell the AI what to avoid. The responsible-AI review comes later and checks what could still go wrong."*
@@ -222,7 +224,7 @@ There are five checks, and each one is always available:
 > Choose a burger → Understand the purpose → Build the seven layers → Watch the live prompt assemble → Learn the relevant techniques → Run BITE → Run the responsible-AI review → Copy or download → See the result and a lesson summary → Try another journey
 
 - **Order:** the flow is the default order, not a cage. Learners may revisit any completed step.
-- **The techniques step is a short bridge, not a lesson.** It shows at most three technique cards, each one sentence plus a link to the Technique Lab, and a "Continue to BITE" button stays visible throughout.
+- **The techniques step is a short bridge, not a lesson.** It shows at most three technique cards. Each card leads with a one-sentence definition. "Use it when", a tiny example and the limitation open on request, followed by a link to the Technique Lab. A "Continue to BITE" button stays visible throughout.
 - **"Understand the purpose" includes a short weak-versus-improved prompt comparison**, shown within the first screen of every journey, so the payoff is visible before the learner builds anything.
 - **Each journey shows an example output** (text, image or code, depending on the discipline) in the result step. It is labelled "Example only. Real outputs vary."
 - **Open owner decision:** the Creative Writer review suggested moving "Learn the relevant techniques" to after the summary, so building flows straight into BITE. This would change the owner-defined flow, so it has **not** been applied.

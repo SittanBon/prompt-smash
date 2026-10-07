@@ -15,7 +15,11 @@ npm run dev        # local development server
 npm run typecheck  # TypeScript only
 npm run build      # typecheck + production build into dist/
 npm run preview    # serve the production build locally
+npm run content:render  # regenerate content/*.md from the TypeScript content
+npm run content:check   # check the content rules and that content/*.md is up to date
 ```
+
+The content scripts need Node 22.18 or newer, for built-in TypeScript support.
 
 ## Project structure
 
@@ -62,5 +66,9 @@ All text uses **Jost** (SIL Open Font License 1.1). The site bundles it through 
 | `SITE_MAP.md` | Planned sections, navigation and shareable URL scheme |
 | `CONTENT_COVERAGE_MATRIX.md` | Progress of every content unit; "done" means ✅ Approved |
 | `src/data/schema.ts` | TypeScript content schema for all four journeys |
-| `src/data/framework.ts` | Fixed definitions: seven layers, BITE, safety checks, anchor use cases |
+| `src/data/framework.ts` | Fixed definitions: seven layers, BITE, safety checks, anchor use cases, shared review copy |
+| `src/data/journeys/*.ts` | **Source of truth** for each journey's content pack |
+| `src/data/promptAssembly.ts` | Live-prompt assembly rules, microcopy and the pure `assemblePrompt` function |
+| `content/*.md` | Editorial versions, **generated** from the journey files. Never edit them by hand. |
+| `content/tests/` | Illustrative prompt-test reports |
 | `ref/REFERENCE_MANIFEST.md` | Visual reference hierarchy. The reference images stay local and are not committed. |

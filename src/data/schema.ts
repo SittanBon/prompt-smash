@@ -33,6 +33,9 @@ export type SafetyCheckKey = 'risk' | 'injection' | 'hallucination' | 'bias' | '
  */
 export type SafetyReviewState = 'not-yet-reviewed' | 'needs-attention' | 'action-added' | 'not-relevant';
 
+/** Learner-facing BITE state. 'not-needed' is only valid for Taste. */
+export type BiteReviewState = 'not-yet-checked' | 'clear' | 'needs-attention' | 'not-needed';
+
 /* ------------------------------------------------------------------ */
 /* Simple / Pro contract (Constitution §3)                             */
 /* ------------------------------------------------------------------ */
@@ -92,6 +95,8 @@ export interface LayerContent {
 
   /** The learner's text field (shown on screen as "Your answer", never "input"). */
   answerField: {
+    /** Visible field label, e.g. "Your answer". */
+    label: string;
     /** The question shown above the field. */
     question: string;
     placeholder: string;
@@ -106,20 +111,25 @@ export interface LayerContent {
     body: string;
   };
 
-  /** How this layer's input is written into the assembled prompt. */
+  /** What happens to the result when this layer is left out. */
+  omissionEffect: ModeText;
+
+  /** How this layer's answer is written into the assembled prompt (see promptAssembly.ts). */
   assembly: {
     /** Heading used in the assembled prompt, e.g. "Goal". */
     sectionLabel: string;
-    /** Template with the {{input}} placeholder, e.g. "My goal: {{input}}". */
+    /** Template with the {{answer}} placeholder. */
     template: string;
   };
 
-  /** Feedback beside the input field. */
+  /** Feedback beside the answer field. */
   states: {
     empty: string;
-    /** Shown when the input looks too vague or is missing something important. */
+    /** Shown when the answer looks too vague or seems to belong in another layer. */
     warning: string;
     complete: string;
+    /** Optional layers only: shown when marked "Not needed". {{reason}} is the learner's reason. */
+    notNeeded?: string;
   };
 }
 
@@ -149,19 +159,38 @@ export interface ExampleOutput {
   illustrativeLabel: string;
 }
 
+/** The same seven layers applied to a different, non-anchor task. */
+export interface LayerVariation {
+  title: string;
+  scenario: string;
+  answers: Record<LayerKey, string>;
+}
+
 export interface WorkedExample {
+  /** First screen of the journey: the payoff before any building. */
+  firstScreen: {
+    heading: string;
+    weakLabel: string;
+    improvedLabel: string;
+    payoff: string;
+  };
   weakPrompt: string;
   diagnosedWeaknesses: {
     layer: LayerKey;
     issue: string;
   }[];
   improvedPrompt: string;
+  /** Why the improved prompt is better, one point per layer that changed. */
+  whyBetter: { layer: LayerKey; point: string }[];
   /**
    * Reading order of sections in the final assembled prompt. May differ from
    * burger order when that serves the AI better (Constitution §5).
    */
   finalPromptStructure: LayerKey[];
   exampleOutput: ExampleOutput;
+  /** What the example output still needs before use. */
+  limitationsAndReview: string[];
+  variation: LayerVariation;
 }
 
 /* ------------------------------------------------------------------ */
@@ -192,9 +221,21 @@ export interface TechniqueRef {
   /** Matches a Technique Lab entry, e.g. "few-shot". */
   id: string;
   name: string;
+  /** One sentence. */
+  definition: string;
   whenToUse: ModeText;
-  /** How the technique applies to this burger's anchor use case. */
+  /** Tiny example applied to this burger's anchor use case. */
   burgerExample: string;
+  limitation: string;
+}
+
+/** Short contextual bridge between the live prompt and BITE (Constitution §9). */
+export interface TechniqueBridge {
+  intro: string;
+  techniques: TechniqueRef[];
+  /** Points to the journey that teaches techniques in depth. */
+  deeperLearning: string;
+  continueLabel: string;
 }
 
 export type ExerciseType =
@@ -209,13 +250,18 @@ export type ExpectedAnswer =
   | { kind: 'option'; optionId: string }
   | { kind: 'options'; optionIds: string[] }
   | { kind: 'order'; order: string[] }
+  /** For matching: option id → the layer (or category) it belongs to. */
+  | { kind: 'mapping'; pairs: Record<string, string> }
   /** Open answers are checked against plain-language criteria, never "graded" by an AI. */
   | { kind: 'rubric'; criteria: string[] };
 
 export interface Exercise {
   id: string;
   type: ExerciseType;
+  title: string;
   question: string;
+  /** Prompt text the exercise refers to, shown as a quoted block. */
+  material?: string;
   options?: { id: string; label: string }[];
   expected: ExpectedAnswer;
   feedback: {
@@ -224,7 +270,11 @@ export interface Exercise {
     simple: string;
     /** Shown after `simple` in Pro mode, never instead of it. */
     proAddition: string;
+    /** Helpful, non-judgemental response for a wrong or incomplete answer. */
+    wrongAnswer: string;
   };
+  /** Free-form tasks: one good answer, shown as a model, not as the only answer. */
+  modelAnswer?: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -237,6 +287,15 @@ export interface BiteCheck {
   /** What a good answer contains for this burger. */
   lookFor: string[];
   explanation: ModeText;
+  passingExample: string;
+  needsAttentionExample: string;
+  correctiveAction: string;
+  stateCopy: {
+    clear: string;
+    needsAttention: string;
+    /** Taste only. {{reason}} is the learner's reason. */
+    notNeeded?: string;
+  };
   /** Taste only: when Style/Quality genuinely doesn't apply, the learner confirms a reason. */
   notNeeded?: { allowed: boolean; exampleReason: string };
 }
@@ -255,6 +314,12 @@ export interface SafetyCheck {
     promptInstruction: string;
     workflowControl: string;
   };
+  /** {{reason}} is the learner's reason for "Not relevant". */
+  stateCopy: {
+    needsAttention: string;
+    actionAdded: string;
+    notRelevant: string;
+  };
 }
 
 export type ResponsibleAiReview = Record<SafetyCheckKey, SafetyCheck>;
@@ -265,10 +330,15 @@ export type ResponsibleAiReview = Record<SafetyCheckKey, SafetyCheck>;
 
 export interface JourneyContent {
   id: JourneyId;
+  /** e.g. "Hamburger — Prompt Design". */
+  title: string;
   burgerName: string;
   discipline: string;
+  /** One-line purpose. */
   shortDescription: string;
-  bestFor: string;
+  bestFor: string[];
+  /** Core ideas the journey must make clear. */
+  keyIdeas: string[];
   learningOutcomes: string[];
   anchorUseCase: {
     title: string;
@@ -281,7 +351,7 @@ export interface JourneyContent {
   workedExample: WorkedExample;
   /** Required for 'crispy-chicken'; optional elsewhere. */
   evaluation?: EvaluationPlan;
-  techniques: TechniqueRef[];
+  techniqueBridge: TechniqueBridge;
   /** At least four per journey. */
   exercises: Exercise[];
   bite: BiteReview;
@@ -291,6 +361,10 @@ export interface JourneyContent {
     headline: string;
     recap: string[];
     takeaway: ModeText;
+    /** Why the next journey is the natural step. */
+    nextJourneyPitch: string;
+    /** Planned interface actions, in display order. */
+    actions: string[];
   };
   nextJourney: JourneyId | null;
 }

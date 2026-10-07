@@ -53,3 +53,6 @@ secrets/
 
 # Local tool configuration
 .claude/
+
+# Local prompt-test inputs (results are summarised in content/tests/)
+qa/content-tests/

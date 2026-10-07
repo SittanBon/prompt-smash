@@ -100,3 +100,24 @@ export const JOURNEY_META: readonly {
     anchorStatus: 'proposed',
   },
 ];
+
+/** What BITE does and does not mean — shown with every BITE result (Constitution §7). */
+export const BITE_LIMITS: readonly string[] = [
+  'Passing BITE means your prompt is better specified.',
+  'It does not guarantee that the AI’s answer will be accurate.',
+  'It does not mean the task is safe.',
+  'It does not replace human review or the responsible-AI review.',
+];
+
+/** Shown with the responsible-AI review (Constitution §8). */
+export const REVIEW_DISCLAIMER =
+  'Reviewed means you considered the issue. It does not guarantee that the prompt or its result is safe.';
+
+/** Screen framing for BITE and the responsible-AI review (Constitution §6, §10). */
+export const REVIEW_SCREEN_COPY = {
+  biteIntro:
+    'BITE is your own test bite before you hand the prompt to the AI. Four quick checks show whether anything important is missing. Fix anything marked Needs attention, then continue.',
+  biteNext: 'Next: the responsible-AI review asks what could still go wrong when this prompt is used.',
+  reviewIntro:
+    'Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then copy or download your prompt.',
+} as const;
