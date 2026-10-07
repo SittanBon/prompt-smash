@@ -121,3 +121,32 @@ export const REVIEW_SCREEN_COPY = {
   reviewIntro:
     'Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then copy or download your prompt.',
 } as const;
+
+/** Evaluation scale used in every evaluation plan (deliberately coarse — no fake precision). */
+export const EVALUATION_SCALE: readonly { key: string; label: string; meaning: string }[] = [
+  { key: 'meets', label: 'Meets', meaning: 'The result does what the criterion asks, with no problems a reviewer would need to fix.' },
+  { key: 'partly', label: 'Partly meets', meaning: 'Some of it is right, but a reviewer would need to correct or complete it.' },
+  { key: 'does-not-meet', label: 'Does not meet', meaning: 'The result misses or breaks the criterion.' },
+  { key: 'not-applicable', label: 'Not applicable', meaning: 'This criterion does not apply to this test case.' },
+];
+
+export const CHECK_TYPE_LABEL: Record<'deterministic' | 'human-judgement' | 'factual-verification' | 'safety-governance', string> = {
+  deterministic: 'Deterministic check (structure, required fields — can be checked automatically)',
+  'human-judgement': 'Human judgement (is it useful, sensible, well prioritised?)',
+  'factual-verification': 'Factual verification (checked against the source data)',
+  'safety-governance': 'Safety and governance review',
+};
+
+/** Interface microcopy for evaluation and version comparison. {{version}} and {{case}} are filled in by the interface. */
+export const EVALUATION_MICROCOPY = {
+  testCaseNotRun: 'Not tested yet. Run the prompt on this case and record what happened.',
+  recordResult: 'How did the result do against each criterion?',
+  resultRecorded: 'Result recorded for {{case}}.',
+  oneRunReminder: 'One good result is not proof. Try the same prompt on more cases, or run it again.',
+  changeOneThing: 'Change one thing at a time, so you can tell what made the difference.',
+  versionSaved: 'Version {{version}} saved in this browser.',
+  compareVersions: 'Compare versions on the same test cases and the same criteria.',
+  compareWarning: 'These versions were tested on different cases, so the comparison is not fair yet.',
+  illustrativeLabel: 'Illustrative result from one test run. Results vary between runs, models and versions.',
+  noCriteria: 'Define what success looks like before you judge any result.',
+} as const;

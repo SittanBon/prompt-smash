@@ -71,4 +71,6 @@ All text uses **Jost** (SIL Open Font License 1.1). The site bundles it through 
 | `src/data/promptAssembly.ts` | Live-prompt assembly rules, microcopy and the pure `assemblePrompt` function |
 | `content/*.md` | Editorial versions, **generated** from the journey files. Never edit them by hand. |
 | `content/tests/` | Illustrative prompt-test reports |
+| `src/data/fixtures/` | Fictional datasets used by journeys and tests (for example the customer-feedback sample) |
+| `scripts/build-test-prompts.mjs` | Builds the illustrative test prompts from the real content and assembler into `qa/content-tests/` (local only) |
 | `ref/REFERENCE_MANIFEST.md` | Visual reference hierarchy. The reference images stay local and are not committed. |

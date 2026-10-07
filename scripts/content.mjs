@@ -11,12 +11,16 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { UNIVERSAL_LAYERS, BITE, SAFETY_CHECKS, BITE_LIMITS, REVIEW_DISCLAIMER, REVIEW_SCREEN_COPY, LAYER_STATUS_LABEL } from '../src/data/framework.ts';
-import { ASSEMBLY_RULES, ASSEMBLY_MICROCOPY, assembleExamplePrompt } from '../src/data/promptAssembly.ts';
+import { UNIVERSAL_LAYERS, BITE, SAFETY_CHECKS, BITE_LIMITS, REVIEW_DISCLAIMER, REVIEW_SCREEN_COPY, LAYER_STATUS_LABEL, EVALUATION_SCALE, CHECK_TYPE_LABEL, EVALUATION_MICROCOPY } from '../src/data/framework.ts';
+import { ASSEMBLY_RULES, ASSEMBLY_MICROCOPY, assembleExamplePrompt, assemblePrompt } from '../src/data/promptAssembly.ts';
 import { hamburger } from '../src/data/journeys/hamburger.ts';
+import { crispyChicken } from '../src/data/journeys/crispyChicken.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const JOURNEYS = [{ data: hamburger, file: 'content/hamburger-prompt-design.md' }];
+const JOURNEYS = [
+  { data: hamburger, file: 'content/hamburger-prompt-design.md', minExercises: 4 },
+  { data: crispyChicken, file: 'content/crispy-chicken-prompt-engineering.md', minExercises: 8 },
+];
 
 /* ------------------------------------------------------------------ */
 /* Validation                                                          */
@@ -24,7 +28,7 @@ const JOURNEYS = [{ data: hamburger, file: 'content/hamburger-prompt-design.md' 
 
 const words = (s) => s.trim().split(/\s+/).filter(Boolean).length;
 
-function validate(j) {
+function validate(j, minExercises) {
   const errors = [];
   const err = (m) => errors.push(`${j.id}: ${m}`);
 
@@ -41,7 +45,32 @@ function validate(j) {
     if (!layer.assembly.template.includes('{{answer}}')) err(`${at}: assembly template needs {{answer}}`);
     if (layer.status === 'optional' && !layer.states.notNeeded) err(`${at}: optional layer needs a notNeeded state`);
   });
-  if (j.exercises.length < 4) err(`needs at least 4 exercises (has ${j.exercises.length})`);
+  if (j.exercises.length < minExercises) err(`needs at least ${minExercises} exercises (has ${j.exercises.length})`);
+  for (const x of j.exercises) {
+    if (!x.feedback.wrongAnswer) err(`exercise ${x.id}: missing wrong-answer help`);
+    if ((x.type === 'free-text' || x.type === 'rewrite') && !x.modelAnswer) err(`exercise ${x.id}: free-form exercise needs a model answer`);
+  }
+  if (/TODO/.test(JSON.stringify(j))) err('contains unfinished TODO content');
+  // Layer definitions are universal: they must match the Hamburger wording exactly.
+  if (j.id !== 'hamburger')
+    j.layers.forEach((l, i) => {
+      if (l.simple.definition !== hamburger.layers[i].simple.definition) err(`layer ${l.key}: Simple definition differs from Hamburger`);
+      if (l.metaphorLink.split(',')[0] === '') err(`layer ${l.key}: empty metaphor link`);
+    });
+  if (j.id === 'crispy-chicken') {
+    const ev = j.evaluation;
+    if (!ev || ev.testCases.length < 10) err('evaluation plan needs at least 10 test cases');
+    if (!ev || ev.iterations.length < 4) err('evaluation plan needs at least 4 versions');
+    const ids = new Set((ev?.criteria ?? []).map((c) => c.id));
+    for (const t of ev?.testCases ?? []) for (const c of t.criterionIds) if (!ids.has(c)) err(`test case ${t.id}: unknown criterion "${c}"`);
+    const lab = j.techniqueLab;
+    if (!lab || lab.techniques.length !== 8) err('Technique Lab needs exactly 8 techniques');
+    for (const t of lab?.techniques ?? [])
+      for (const f of ['definition', 'definitionProAddition', 'burgerExample', 'limitation', 'costOrEffort', 'notNeededWhen', 'anchorLink'])
+        if (!t[f]) err(`technique ${t.id}: missing ${f}`);
+    if (/hidden (chain|reasoning)/i.test(JSON.stringify(lab)) && !/not ask for private or hidden/i.test(JSON.stringify(lab)))
+      err('Technique Lab must not request hidden reasoning');
+  }
   for (const b of BITE) if (!j.bite[b.key]) err(`missing BITE check "${b.key}"`);
   if (!j.bite.taste.notNeeded || !j.bite.taste.stateCopy.notNeeded) err('Taste needs Not-needed content');
   for (const c of SAFETY_CHECKS) if (!j.responsibleAi[c.key]) err(`missing responsible-AI check "${c.key}"`);
@@ -57,6 +86,12 @@ function validate(j) {
 /* Rendering                                                           */
 /* ------------------------------------------------------------------ */
 
+/** Shortens a pasted <feedback> block for display; full prompts stay available in collapsed panels. */
+const abbreviate = (text) =>
+  text.replace(/<feedback>\n([\s\S]*?)<\/feedback>/g, (_, body) => {
+    const n = body.split('\n').filter((l) => l.trim()).length;
+    return `<feedback>[${n} customer comments, as listed in the Context layer]</feedback>`;
+  });
 const quote = (s) => s.split('\n').map((l) => `> ${l}`).join('\n');
 const fence = (s, lang = 'text') => `\`\`\`${lang}\n${s}\n\`\`\``;
 const list = (items) => items.map((i) => `- ${i}`).join('\n');
@@ -127,7 +162,7 @@ function renderExercise(x, n) {
   else if (exp.kind === 'order') answer = exp.order.join(' → ');
   else if (exp.kind === 'mapping')
     answer = Object.entries(exp.pairs)
-      .map(([id, v]) => `${id} → ${UNIVERSAL_LAYERS.find((l) => l.key === v)?.label ?? v}`)
+      .map(([id, v]) => `${id} → ${UNIVERSAL_LAYERS.find((l) => l.key === v)?.label ?? MAPPING_NAMES[v] ?? v}`)
       .join('; ');
   else answer = `Checklist (no single correct answer):\n${list(exp.criteria)}`;
 
@@ -142,6 +177,104 @@ ${x.modelAnswer ? `\n**Model answer (one good version):**\n\n${fence(x.modelAnsw
 - **Simple feedback:** ${x.feedback.simple}
 - **Pro adds:** ${x.feedback.proAddition}
 - **If the answer is wrong:** ${x.feedback.wrongAnswer}
+`;
+}
+
+const NEXT_TITLE = {
+  'crispy-chicken': 'Crispy Chicken Burger — Prompt Engineering',
+  'bacon-cheese': 'Bacon Cheese Burger — Text-to-Image',
+  'chilli-cheese': 'Chilli Cheese Burger — Text-to-Code',
+  hamburger: 'Hamburger — Prompt Design',
+};
+const TECHNIQUE_NAMES = Object.fromEntries((crispyChicken.techniqueLab?.techniques ?? []).map((t) => [t.id, t.name]));
+const MAPPING_NAMES = { design: 'Prompt Design', engineering: 'Prompt Engineering', ...TECHNIQUE_NAMES };
+
+function renderLab(j) {
+  const lab = j.techniqueLab;
+  return `---
+
+## Technique Lab
+
+${modeText(lab.intro)}
+
+> **${lab.principle}**
+
+*Progressive disclosure: each card shows its name and Simple definition. The other fields open on request, in the order below.*
+
+${lab.techniques
+  .map(
+    (t, i) => `### ${i + 1}. ${t.name}
+**${t.definition}** *Pro adds:* ${t.definitionProAddition}
+
+- **Use it when:** ${t.whenToUse.simple} *Pro adds:* ${t.whenToUse.proAddition}
+- **Tiny example:** ${t.burgerExample}
+- **Limitation:** ${t.limitation}
+- **Cost or effort:** ${t.costOrEffort}
+- **Not needed when:** ${t.notNeededWhen}
+- **In the anchor case:** ${t.anchorLink}${t.steps ? `\n- **Steps:**\n${t.steps.map((st, k) => `  ${k + 1}. ${st}`).join('\n')}` : ''}`,
+  )
+  .join('\n\n')}
+
+`;
+}
+
+function versionPrompt(j, it) {
+  if (it.promptText) return it.promptText;
+  const answers = {};
+  for (const l of j.layers) {
+    const o = it.layerOverrides?.[l.key];
+    answers[l.key] = o === null ? { state: 'empty' } : { state: 'filled', text: o ?? l.answerField.exampleAnswer };
+  }
+  return assemblePrompt(j.layers, answers).text;
+}
+
+function renderEvaluation(j) {
+  const ev = j.evaluation;
+  const crit = Object.fromEntries(ev.criteria.map((c) => [c.id, c.name]));
+  return `---
+
+## Evaluation plan
+
+${modeText(ev.intro)}
+
+### Scale
+| Rating | Meaning |
+|---|---|
+${EVALUATION_SCALE.map((x) => `| ${x.label} | ${x.meaning} |`).join('\n')}
+
+### Criteria
+| Criterion | What it checks | Meets when… | How it is judged |
+|---|---|---|---|
+${ev.criteria.map((c) => `| ${c.name} | ${c.description} | ${c.passSignal} | ${CHECK_TYPE_LABEL[c.checkType]} |`).join('\n')}
+
+### Test cases
+| ID | Scenario | Input | What to check | Criteria |
+|---|---|---|---|---|
+${ev.testCases.map((t) => `| ${t.id} | ${t.scenario} | ${t.input} | ${t.whatToCheck} | ${t.criterionIds.map((c) => crit[c]).join(', ')} |`).join('\n')}
+
+### Version history
+${ev.iterations
+  .map(
+    (it) => `#### ${it.version}
+- **What changed:** ${it.promptChange}${it.changedLayers.length ? ` *(Layers: ${it.changedLayers.map(label).join(', ')})*` : ''}
+- **Why:** ${it.why}
+- **Failure addressed:** ${it.failureAddressed}
+- **Result (${it.evidence === 'observed-in-illustrative-test' ? 'observed in illustrative test runs, not a measurement' : 'illustrative description, not tested'}):** ${it.illustrativeResult}
+- **Still uncertain:** ${it.remainingUncertainty}
+
+<details><summary>See the full ${it.version} prompt</summary>
+
+${fence(abbreviate(versionPrompt(j, it)))}
+
+</details>`,
+  )
+  .join('\n\n')}
+
+### Evaluation microcopy
+| Situation | Copy |
+|---|---|
+${Object.entries(EVALUATION_MICROCOPY).map(([k, v]) => `| ${k} | ${v} |`).join('\n')}
+
 `;
 }
 
@@ -173,14 +306,29 @@ ${list(j.learningOutcomes)}
 ---
 
 ## First screen: ${w.firstScreen.heading}
+${
+  w.firstScreen.approachComparison
+    ? `
+| ${w.firstScreen.weakLabel} | ${w.firstScreen.improvedLabel} |
+|---|---|
+| ${w.firstScreen.approachComparison.weak} | ${w.firstScreen.approachComparison.improved} |
 
+**Simple:** ${w.firstScreen.approachComparison.simple}
+
+*Pro notes (collapsed by default):*
+${list(w.firstScreen.approachComparison.proPoints)}
+
+*The prompts behind the comparison:*
+`
+    : ''
+}
 **${w.firstScreen.weakLabel}**
 
 ${quote(w.weakPrompt)}
 
 **${w.firstScreen.improvedLabel}**
 
-${fence(w.improvedPrompt)}
+${fence(abbreviate(w.improvedPrompt))}
 
 ${w.firstScreen.payoff}
 
@@ -216,7 +364,7 @@ ${quote(w.weakPrompt)}
 ${w.diagnosedWeaknesses.map((d) => `| ${label(d.layer)} | ${d.issue} |`).join('\n')}
 
 ### 3. Improved prompt (still readable)
-${fence(w.improvedPrompt)}
+${fence(abbreviate(w.improvedPrompt))}
 
 ### 4. Why it is better
 ${w.whyBetter.map((b) => `- **${label(b.layer)}:** ${b.point}`).join('\n')}
@@ -231,7 +379,17 @@ ${fence(full.text)}
 
 ${w.exampleOutput.content}
 
-### 7. Limitations and review
+${
+  w.testCycle
+    ? `### Test cycle: test → failure → one change → retest
+- **Baseline test:** ${w.testCycle.baselineTest}
+- **Failure found:** ${w.testCycle.failureFound}
+- **Controlled revision:** ${w.testCycle.controlledRevision}
+- **Retest:** ${w.testCycle.retest}
+
+`
+    : ''
+}### 7. Limitations and review
 ${list(w.limitationsAndReview)}
 
 ### 8. ${w.variation.title}
@@ -269,7 +427,7 @@ ${j.techniqueBridge.deeperLearning}
 
 **[${j.techniqueBridge.continueLabel}]**
 
----
+${j.techniqueLab ? renderLab(j) : ''}${j.evaluation ? renderEvaluation(j) : ''}---
 
 ## Exercises
 
@@ -336,7 +494,7 @@ ${modeText(j.completionSummary.takeaway)}
 
 **Planned actions:** ${j.completionSummary.actions.join(' · ')}
 
-**Recommended next journey:** Crispy Chicken Burger — Prompt Engineering. ${j.completionSummary.nextJourneyPitch}
+**Recommended next journey:** ${NEXT_TITLE[j.nextJourney] ?? 'None'}. ${j.completionSummary.nextJourneyPitch}
 `;
 }
 
@@ -344,8 +502,8 @@ ${modeText(j.completionSummary.takeaway)}
 
 const mode = process.argv[2] ?? 'check';
 let failed = false;
-for (const { data, file } of JOURNEYS) {
-  const errors = validate(data);
+for (const { data, file, minExercises } of JOURNEYS) {
+  const errors = validate(data, minExercises);
   if (errors.length) {
     failed = true;
     console.error(errors.map((e) => `✗ ${e}`).join('\n'));

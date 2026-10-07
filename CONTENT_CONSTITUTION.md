@@ -253,7 +253,7 @@ These are teaching examples, not limits on what each burger can be used for.
 
 **How the layers apply to each discipline.** These are draft guidance notes, so content writers apply the seven layers the same way:
 
-- **Prompt Engineering:** the layers describe the prompt being engineered. Engineering adds test cases, evaluation criteria and versioning, stored as the journey's `evaluation` plan and taught through techniques and exercises, never as an eighth layer. Iteration results are illustrative reconstructions, labelled as such, and never claimed as measurements.
+- **Prompt Engineering:** the layers describe the prompt being engineered. Engineering adds test cases, evaluation criteria and versioning, stored as the journey's `evaluation` plan and taught through techniques and exercises, never as an eighth layer. Iteration results come from illustrative test runs (one model, a few runs) or are clearly labelled as descriptions. They are never claimed as measurements or benchmarks.
 - **Text-to-Image:**
   - *Task* is the subject and action.
   - *Context/Input* is any reference material.

@@ -173,6 +173,13 @@ export interface WorkedExample {
     weakLabel: string;
     improvedLabel: string;
     payoff: string;
+    /** Optional: compare two working approaches rather than two prompts (e.g. Prompt Engineering). */
+    approachComparison?: {
+      weak: string;
+      improved: string;
+      simple: string;
+      proPoints: string[];
+    };
   };
   weakPrompt: string;
   diagnosedWeaknesses: {
@@ -191,6 +198,13 @@ export interface WorkedExample {
   /** What the example output still needs before use. */
   limitationsAndReview: string[];
   variation: LayerVariation;
+  /** Optional: an explicit test → failure → one change → retest sequence (Prompt Engineering). */
+  testCycle?: {
+    baselineTest: string;
+    failureFound: string;
+    controlledRevision: string;
+    retest: string;
+  };
 }
 
 /* ------------------------------------------------------------------ */
@@ -198,18 +212,55 @@ export interface WorkedExample {
 /* ------------------------------------------------------------------ */
 
 export interface IterationStep {
-  /** e.g. "v1", "v2". */
+  /** e.g. "V0", "V1". */
   version: string;
   /** What changed, and in which layer. */
   promptChange: string;
   changedLayers: LayerKey[];
+  /** Why the change was made. */
+  why: string;
+  /** The failure this version addresses. */
+  failureAddressed: string;
   /** Labelled "Illustrative result" on screen — the site never runs a model. */
   illustrativeResult: string;
+  remainingUncertainty: string;
+  /** Whether the result was seen in an illustrative test run or is only described. */
+  evidence: 'observed-in-illustrative-test' | 'illustrative-description';
+  /**
+   * How this version differs from the final layer answers: replacement text,
+   * or null to leave the layer out. Lets the version prompt be rebuilt with the
+   * real assembler.
+   */
+  layerOverrides?: Partial<Record<LayerKey, string | null>>;
+  /** For versions that are not built from layers at all (e.g. a vague V0). */
+  promptText?: string;
+}
+
+/** How a criterion is judged (Numbered Prompt 6, Part H). */
+export type CheckType = 'deterministic' | 'human-judgement' | 'factual-verification' | 'safety-governance';
+
+export interface EvaluationCriterion {
+  id: string;
+  name: string;
+  description: string;
+  /** What "Meets" looks like. */
+  passSignal: string;
+  checkType: CheckType;
+}
+
+export interface TestCase {
+  id: string;
+  /** Short label, e.g. "Multiple issues in one comment". */
+  scenario: string;
+  input: string;
+  whatToCheck: string;
+  criterionIds: string[];
 }
 
 export interface EvaluationPlan {
-  testCases: { id: string; input: string; whatToCheck: string }[];
-  criteria: { id: string; description: string; passSignal: string }[];
+  intro: ModeText;
+  testCases: TestCase[];
+  criteria: EvaluationCriterion[];
   iterations: IterationStep[];
 }
 
@@ -229,6 +280,25 @@ export interface TechniqueRef {
   limitation: string;
 }
 
+/** A full Technique Lab card (Crispy Chicken). Extends the bridge card. */
+export interface TechniqueCard extends TechniqueRef {
+  /** Added after `definition` in Pro mode. */
+  definitionProAddition: string;
+  costOrEffort: string;
+  notNeededWhen: string;
+  /** Where the technique applies in this journey's anchor case. */
+  anchorLink: string;
+  /** Optional ordered steps, e.g. the stages of a prompt chain. */
+  steps?: string[];
+}
+
+export interface TechniqueLab {
+  intro: ModeText;
+  /** The "choose the smallest technique that solves the problem" principle. */
+  principle: string;
+  techniques: TechniqueCard[];
+}
+
 /** Short contextual bridge between the live prompt and BITE (Constitution §9). */
 export interface TechniqueBridge {
   intro: string;
@@ -244,7 +314,9 @@ export type ExerciseType =
   | 'order-the-layers'
   | 'match-layer'
   | 'rewrite'
-  | 'free-text';
+  | 'free-text'
+  /** Put stages or steps (not layers) in order. */
+  | 'order-steps';
 
 export type ExpectedAnswer =
   | { kind: 'option'; optionId: string }
@@ -352,6 +424,8 @@ export interface JourneyContent {
   /** Required for 'crispy-chicken'; optional elsewhere. */
   evaluation?: EvaluationPlan;
   techniqueBridge: TechniqueBridge;
+  /** Full Technique Lab — required for 'crispy-chicken', absent elsewhere. */
+  techniqueLab?: TechniqueLab;
   /** At least four per journey. */
   exercises: Exercise[];
   bite: BiteReview;
@@ -369,7 +443,7 @@ export interface JourneyContent {
   nextJourney: JourneyId | null;
 }
 
-/** Use this to type journey content files: Crispy Chicken must include its evaluation plan. */
+/** Use this to type journey content files: Crispy Chicken must include its evaluation plan and Technique Lab. */
 export type JourneyContentStrict =
-  | (JourneyContent & { id: 'crispy-chicken'; evaluation: EvaluationPlan })
+  | (JourneyContent & { id: 'crispy-chicken'; evaluation: EvaluationPlan; techniqueLab: TechniqueLab })
   | (JourneyContent & { id: Exclude<JourneyId, 'crispy-chicken'> });

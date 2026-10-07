@@ -1,7 +1,7 @@
 # Prompt Smash! — Content Coverage Matrix
 
 **Purpose:** make missing content obvious. A unit counts as finished **only at ✅ Approved**. A field existing in `src/data/schema.ts` does **not** mean its content exists.
-**Rules:** `CONTENT_CONSTITUTION.md`. **Last updated:** Numbered Prompt 5 (2026-10-07). The Hamburger content pack is written and reviewed.
+**Rules:** `CONTENT_CONSTITUTION.md`. **Last updated:** Numbered Prompt 6 (2026-10-07). The Hamburger and Crispy Chicken content packs and the Technique Lab are written and reviewed.
 
 ## Status pipeline
 
@@ -24,11 +24,11 @@ Each unit moves left to right. Skipping a stage needs the owner's approval.
 | Scope | Units | ⬜ Not started | ✏️ Drafted | 📘 Theory reviewed | 🛡️ Safety reviewed | 🧩 UX integrated | 🧪 Prompt tested | ✅ Approved |
 |---|---|---|---|---|---|---|---|---|
 | Hamburger | 62 | 1 | 0 | 0 | 59 | 0 | 1 | 1 |
-| Crispy Chicken Burger | 63 | 62 | 0 | 0 | 0 | 0 | 0 | 1 |
+| Crispy Chicken Burger | 63 | 1 | 0 | 0 | 60 | 0 | 1 | 1 |
 | Bacon Cheese Burger | 62 | 61 | 0 | 0 | 0 | 0 | 0 | 1 |
 | Chilli Cheese Burger | 62 | 61 | 0 | 0 | 0 | 0 | 0 | 1 |
-| Site-wide chapters | 14 | 13 | 0 | 0 | 0 | 0 | 0 | 1 |
-| **All** | **263** | **198** | **0** | **0** | **59** | **0** | **1** | **5** |
+| Site-wide chapters | 14 | 12 | 0 | 0 | 1 | 0 | 0 | 1 |
+| **All** | **263** | **136** | **0** | **0** | **120** | **0** | **2** | **5** |
 
 **Launch readiness: 5 of 263 units approved.**
 
@@ -113,65 +113,65 @@ Anchor use case (approved): *Create a one-week cross-channel marketing content p
 
 ## Crispy Chicken Burger — Prompt Engineering
 
-Anchor use case (proposed): *Systematically test and improve a repeatable business-analysis prompt.*
+Anchor use case (approved): *Systematically test and improve a repeatable prompt that analyses fictional customer feedback and produces an evidence-linked business-priority report.* Originally proposed as: *Systematically test and improve a repeatable business-analysis prompt.*
 
 ### Journey framing
 
 | Item | Status | Notes |
 |---|---|---|
-| Short description, “Best for”, learning outcomes | ⬜ Not started | |
+| Short description, “Best for”, learning outcomes | 🛡️ Safety reviewed | Also includes key ideas and the first-screen approach comparison |
 | Anchor use case | ✅ Approved | Confirmed by the owner in Numbered Prompt 5 |
 
 ### Seven layers
 
 | # | Ingredient | Layer | Status | Simple | Pro | Input (question, placeholder, example) | Why it matters + common mistake | Learn More | Assembly template + empty/warning/complete states |
 |---|---|---|---|---|---|---|---|---|---|
-| 1 | Top Bun | **Goal** | Required | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 2 | Patty / main filling | **Task** | Required | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 3 | Cheese | **Context/Input** | Recommended | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 4 | Toppings | **Requirements/Details** | Recommended | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 5 | Sauce | **Style/Quality** | Optional | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 6 | Bottom Bun | **Output Format** | Recommended | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
-| 7 | Wrapper | **Rules/Boundaries** | Recommended | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started | ⬜ Not started |
+| 1 | Top Bun | **Goal** | Required | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 2 | Patty / main filling | **Task** | Required | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 3 | Cheese | **Context/Input** | Recommended | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 4 | Toppings | **Requirements/Details** | Recommended | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 5 | Sauce | **Style/Quality** | Optional | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 6 | Bottom Bun | **Output Format** | Recommended | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
+| 7 | Wrapper | **Rules/Boundaries** | Recommended | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed + 🧪 tested | 🛡️ Safety reviewed | 🛡️ Safety reviewed | 🛡️ Safety reviewed |
 
 ### Examples, techniques and exercises
 
 | Item | Status | Notes |
 |---|---|---|
-| Weak prompt → diagnosed weaknesses → improved prompt → final structure → example output | ⬜ Not started | |
-| Evaluation plan (test cases, criteria, iterations v1→vN) | ⬜ Not started | Required for this burger only |
-| Relevant techniques (linked to the Technique Lab) | ⬜ Not started | |
-| Exercise 1 (type, question, answer rule, Simple + Pro feedback) | ⬜ Not started | Minimum of 4 |
-| Exercise 2 (type, question, answer rule, Simple + Pro feedback) | ⬜ Not started | Minimum of 4 |
-| Exercise 3 (type, question, answer rule, Simple + Pro feedback) | ⬜ Not started | Minimum of 4 |
-| Exercise 4 (type, question, answer rule, Simple + Pro feedback) | ⬜ Not started | Minimum of 4 |
+| Weak prompt → diagnosed weaknesses → improved prompt → final structure → example output | 🛡️ Safety reviewed + 🧪 tested | Also includes the test cycle (baseline, failure, one change, retest), limitations and a non-feedback variation |
+| Evaluation plan (test cases, criteria, iterations v1→vN) | 🛡️ Safety reviewed + 🧪 tested | 9 criteria, 10 test cases, V0 → V3.1. Results come from illustrative runs. |
+| Relevant techniques (linked to the Technique Lab) | 🛡️ Safety reviewed | Bridge: few-shot, structured approach, iterative evaluation |
+| Exercise 1 (type, question, answer rule, Simple + Pro feedback) | 🛡️ Safety reviewed | Ten exercises written; rows 1–4 track the minimum, and exercises 5–10 are also reviewed |
+| Exercise 2 (type, question, answer rule, Simple + Pro feedback) | 🛡️ Safety reviewed |  |
+| Exercise 3 (type, question, answer rule, Simple + Pro feedback) | 🛡️ Safety reviewed |  |
+| Exercise 4 (type, question, answer rule, Simple + Pro feedback) | 🛡️ Safety reviewed |  |
 
 ### BITE
 
 | Letter | Status |
 |---|---|
-| B — Brief | ⬜ Not started |
-| I — Information | ⬜ Not started |
-| T — Taste | ⬜ Not started |
-| E — Expected result | ⬜ Not started |
+| B — Brief | 🛡️ Safety reviewed |
+| I — Information | 🛡️ Safety reviewed |
+| T — Taste | 🛡️ Safety reviewed |
+| E — Expected result | 🛡️ Safety reviewed |
 
 ### Responsible-AI review (all six parts per check: Simple, Pro, burger example, warning sign, corrective action, prompt vs workflow)
 
 | Check | Status |
 |---|---|
-| Risk | ⬜ Not started |
-| Injection | ⬜ Not started |
-| Hallucination | ⬜ Not started |
-| Bias | ⬜ Not started |
-| Data Protection | ⬜ Not started |
+| Risk | 🛡️ Safety reviewed + 🧪 tested |
+| Injection | 🛡️ Safety reviewed + 🧪 tested |
+| Hallucination | 🛡️ Safety reviewed + 🧪 tested |
+| Bias | 🛡️ Safety reviewed |
+| Data Protection | 🛡️ Safety reviewed + 🧪 tested |
 
 ### Close and sign-off
 
 | Item | Status | Notes |
 |---|---|---|
-| Completion summary + next recommended journey | ⬜ Not started | |
-| Prompt testing (final prompt run against at least one real model, with results noted) | ⬜ Not started | |
-| Editorial approval (owner sign-off for the whole journey) | ⬜ Not started | Only possible once every row above is ✅ |
+| Completion summary + next recommended journey | 🛡️ Safety reviewed | |
+| Prompt testing (final prompt run against at least one real model, with results noted) | 🧪 Prompt tested | 19 illustrative runs (versions, techniques, 10 scenarios, chain, retest, final ×2). See content/tests/crispy-chicken-prompt-tests.md |
+| Editorial approval (owner sign-off for the whole journey) | ⬜ Not started | Awaiting owner. No unit can reach ✅ before UX integration. |
 
 ---
 
@@ -308,7 +308,7 @@ Anchor use case (proposed): *Request a small, responsive and testable interactiv
 | Homepage hero copy | ✅ Approved | Supplied by the owner (Prompt 3), implemented, and the foundation was approved |
 | Four-burger selector copy (“Best for” lines) | ⬜ Not started | The cards currently show name + discipline only |
 | Technique Lab: zero-shot, one-shot, few-shot | ⬜ Not started |  |
-| Technique Lab: other techniques | ⬜ Not started | List to be agreed |
+| Technique Lab: other techniques | 🛡️ Safety reviewed | Structured approach, self-consistency, alternative paths, prompt chaining and iterative evaluation (Crispy Chicken pack) |
 | BITE chapter | ⬜ Not started | Restores the hero’s “See how BITE works” link |
 | Responsible-AI chapter (5 checks, review states, prompt vs workflow) | ⬜ Not started |  |
 | DACH case study (instructional reconstruction only) | ⬜ Not started |  |
