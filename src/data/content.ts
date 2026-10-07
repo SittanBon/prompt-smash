@@ -5,7 +5,14 @@ export const heroContent = {
   headline: 'Build better prompts, layer by layer.',
   supporting: 'A good prompt is like a good burger. Every layer has a job.',
   primaryCta: 'Start building',
+  /** Restore as a link to the BITE chapter once that chapter exists (see SITE_MAP.md). */
   secondaryCta: 'See how BITE works',
+  /** Interim, non-interactive stand-in for secondaryCta. */
+  biteNote: {
+    lead: 'Final check:',
+    name: 'BITE',
+    expansion: 'Brief · Information · Taste · Expected result',
+  },
   badge: ['7 LAYERS', '1 BETTER PROMPT'],
 } as const;
 

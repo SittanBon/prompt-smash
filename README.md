@@ -52,4 +52,15 @@ Use `shot-narrow.sh` for widths below about 500px. It renders the page inside an
 
 ## Fonts
 
-The display stack prefers Futura or Futura PT when the viewer already has it installed (for example on macOS), and otherwise falls back to Avenir Next, Century Gothic or the system sans-serif. No commercial font files are bundled.
+All text uses **Jost** (SIL Open Font License 1.1). The site bundles it through `@fontsource/jost`, using the Latin subset in weights 400, 600 and 700, so it looks the same on every device and needs no CDN. System sans-serif fonts are fallbacks only. See `THIRD_PARTY_NOTICES.md`.
+
+## Content governance
+
+| Document | Role |
+|---|---|
+| `CONTENT_CONSTITUTION.md` | Authoritative content rules: layers, Simple/Pro, BITE, responsible-AI review, privacy |
+| `SITE_MAP.md` | Planned sections, navigation and shareable URL scheme |
+| `CONTENT_COVERAGE_MATRIX.md` | Progress of every content unit; "done" means ✅ Approved |
+| `src/data/schema.ts` | TypeScript content schema for all four journeys |
+| `src/data/framework.ts` | Fixed definitions: seven layers, BITE, safety checks, anchor use cases |
+| `ref/REFERENCE_MANIFEST.md` | Visual reference hierarchy. The reference images stay local and are not committed. |

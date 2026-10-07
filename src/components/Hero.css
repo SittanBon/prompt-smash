@@ -104,6 +104,25 @@
   margin-top: var(--space-xs);
 }
 
+.hero__bite-note {
+  display: grid;
+  align-content: center;
+  min-height: var(--tap-min);
+  font-size: var(--text-sm);
+  line-height: 1.3;
+  color: var(--color-ink-soft);
+}
+
+.hero__bite-note strong {
+  color: var(--color-ink);
+  letter-spacing: 0.04em;
+}
+
+.hero__bite-expansion {
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+}
+
 .hero__journeys {
   justify-self: end;
   width: min(100%, 34rem);

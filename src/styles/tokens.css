@@ -16,10 +16,10 @@
   --color-on-tomato: #fff9ef;
   --color-focus: #2b1b14;
 
-  /* Typography — Futura is used only when already installed locally (e.g. macOS);
-     no commercial font files are bundled. */
-  --font-display: 'Futura PT', Futura, 'Avenir Next', 'Century Gothic', 'Trebuchet MS', system-ui, sans-serif;
-  --font-body: 'Avenir Next', 'Futura PT', Futura, 'Segoe UI', system-ui, -apple-system, sans-serif;
+  /* Typography — Jost (open-licence, Futura-style) is bundled with the site and
+     is the primary face everywhere; system fonts are fallbacks only. */
+  --font-display: 'Jost', 'Avenir Next', 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Jost', 'Avenir Next', 'Segoe UI', system-ui, -apple-system, sans-serif;
 
   --text-xs: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.84rem + 0.15vw, 0.9375rem);

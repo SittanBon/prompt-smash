@@ -1,7 +1,11 @@
+// Development-stage selector data. "coming-later" is temporary: every journey
+// must be complete before launch (CONTENT_CONSTITUTION.md §4).
+import type { JourneyId } from './schema';
+
 export type JourneyStatus = 'available' | 'coming-later';
 
 export interface Journey {
-  id: string;
+  id: JourneyId;
   burger: string;
   topic: string;
   status: JourneyStatus;

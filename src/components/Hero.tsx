@@ -33,9 +33,15 @@ export default function Hero() {
                 <path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
-            <a className="btn btn--ghost" href="#bite">
-              {heroContent.secondaryCta}
-            </a>
+            {/* Plain text until the BITE chapter exists; then restore
+                heroContent.secondaryCta as a link to it. */}
+            <p className="hero__bite-note">
+              <span>
+                {heroContent.biteNote.lead} <strong>{heroContent.biteNote.name}</strong>
+              </span>
+              <span className="visually-hidden">: </span>
+              <span className="hero__bite-expansion">{heroContent.biteNote.expansion}</span>
+            </p>
           </div>
         </div>
 
