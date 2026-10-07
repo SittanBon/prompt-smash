@@ -1,0 +1,407 @@
+/* CSS burger. Each journey sets its own ingredient colours and details;
+   the seven slots and their order never change. Sizes are percentages of the
+   burger's width, so the burger scales with its container. */
+
+.burger {
+  --bun: #d39a58;
+  --bun-light: #e9bf86;
+  --bun-dark: #b87a3c;
+  --seed: #fbf1dc;
+  --patty: #6a3f2a;
+  --patty-dark: #4a2a1c;
+  --patty-light: #8a5a3e;
+  --cheese: #f0b43a;
+  --cheese-dark: #d9961f;
+  --green: #7fa23a;
+  --green-dark: #5e7a2e;
+  --red: #c8432c;
+  --red-dark: #9d2f1d;
+  --sauce: #b8321e;
+  --wrap: #f3e6cd;
+  --wrap-line: rgb(43 27 20 / 0.16);
+  --wrap-accent: #e4d2ae;
+
+  position: relative;
+  width: 100%;
+}
+
+.burger__stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burger__ing {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  transition: transform 260ms var(--ease-out), opacity 260ms var(--ease-out), filter 260ms var(--ease-out);
+}
+
+.burger__detail {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.burger__shadow {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -2%;
+  height: 8%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(43 27 20 / 0.3), transparent);
+}
+
+/* ── 1. Top bun ─────────────────────────────────────────────────── */
+.burger__ing--top-bun {
+  width: 86%;
+  aspect-ratio: 2.6 / 1;
+  border-radius: 50% 50% 14% 14% / 96% 96% 18% 18%;
+  background:
+    radial-gradient(ellipse 40% 30% at 34% 26%, rgb(255 255 255 / 0.28), transparent 70%),
+    linear-gradient(180deg, var(--bun-light), var(--bun) 45%, var(--bun-dark));
+  box-shadow: inset 0 -0.35rem 0 rgb(0 0 0 / 0.1);
+}
+
+/* Sesame seeds */
+.burger__ing--top-bun .burger__detail {
+  background:
+    radial-gradient(ellipse 1.6% 2.6% at 28% 30%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 40% 18%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 52% 26%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 63% 16%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 72% 34%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 46% 44%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 20% 50%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 82% 54%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 58% 50%, var(--seed) 90%, transparent),
+    radial-gradient(ellipse 1.6% 2.6% at 34% 58%, var(--seed) 90%, transparent);
+}
+
+/* ── 2. Patty (Task) ─────────────────────────────────────────────── */
+.burger__ing--patty {
+  width: 92%;
+  aspect-ratio: 6.4 / 1;
+  margin-top: -1.5%;
+  border-radius: 42% / 50%;
+  background:
+    radial-gradient(circle at 20% 40%, var(--patty-light) 0 2%, transparent 3%),
+    radial-gradient(circle at 46% 64%, var(--patty-light) 0 1.6%, transparent 2.6%),
+    radial-gradient(circle at 70% 36%, var(--patty-light) 0 2%, transparent 3%),
+    radial-gradient(circle at 86% 62%, var(--patty-light) 0 1.4%, transparent 2.4%),
+    linear-gradient(180deg, var(--patty-light), var(--patty) 35%, var(--patty-dark));
+}
+
+/* ── 3. Cheese (Context and Input) ───────────────────────────────── */
+.burger__ing--cheese {
+  width: 98%;
+  aspect-ratio: 16 / 1;
+  margin-top: -1.5%;
+  border-radius: 0.3rem;
+  background: linear-gradient(180deg, var(--cheese), var(--cheese-dark));
+}
+
+/* Two melted drips */
+.burger__ing--cheese::before,
+.burger__ing--cheese::after {
+  content: '';
+  position: absolute;
+  top: 60%;
+  width: 6%;
+  height: 170%;
+  border-radius: 0 0 999px 999px;
+  background: var(--cheese-dark);
+}
+
+.burger__ing--cheese::before { left: 18%; }
+.burger__ing--cheese::after { left: 68%; height: 120%; width: 5%; }
+
+/* ── 4. Toppings (Requirements and Details) ──────────────────────── */
+.burger__ing--toppings {
+  width: 100%;
+  aspect-ratio: 8 / 1;
+  margin-top: -1%;
+  border-radius: 46% / 60%;
+  background:
+    radial-gradient(circle at 8% 100%, var(--green-dark) 0 9%, transparent 10%),
+    radial-gradient(circle at 92% 100%, var(--green-dark) 0 9%, transparent 10%),
+    linear-gradient(180deg, var(--green), var(--green-dark));
+}
+
+/* A tomato slice under the lettuce */
+.burger__ing--toppings .burger__detail {
+  inset: auto 6% -18% 6%;
+  height: 52%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--red), var(--red-dark));
+  z-index: -1;
+}
+
+/* ── 5. Sauce (Style and Quality) ────────────────────────────────── */
+.burger__ing--sauce {
+  width: 90%;
+  aspect-ratio: 18 / 1;
+  margin-top: 0.5%;
+  border-radius: 999px;
+  background: var(--sauce);
+}
+
+/* ── 6. Bottom bun (Output Format) ───────────────────────────────── */
+.burger__ing--bottom-bun {
+  width: 86%;
+  aspect-ratio: 5.2 / 1;
+  margin-top: -0.5%;
+  border-radius: 8% 8% 40% 40% / 18% 18% 64% 64%;
+  background:
+    linear-gradient(180deg, var(--bun-light) 0 18%, transparent 18%),
+    linear-gradient(180deg, var(--bun), var(--bun-dark));
+  z-index: 2;
+}
+
+/* ── 7. Wrapper (Rules and Boundaries) ───────────────────────────── */
+.burger__ing--wrapper {
+  z-index: 0;
+  width: 104%;
+  aspect-ratio: 4.6 / 1;
+  margin-top: -13%;
+  border-radius: 2% 2% 22% 22% / 6% 6% 40% 40%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 11%, var(--wrap-line) 11% 11.4%),
+    linear-gradient(180deg, var(--wrap-accent), var(--wrap) 40%);
+  box-shadow: inset 0 0 0 1.5px var(--wrap-line);
+}
+
+/* Folded paper edge */
+.burger__ing--wrapper::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -8%;
+  height: 16%;
+  background:
+    linear-gradient(135deg, transparent 50%, var(--wrap-accent) 50%) 0 0 / 8% 100% repeat-x,
+    linear-gradient(225deg, transparent 50%, var(--wrap-accent) 50%) 0 0 / 8% 100% repeat-x;
+}
+
+/* ================================================================== */
+/* Journey themes                                                      */
+/* ================================================================== */
+
+/* Hamburger — classic sesame bun, beef, cheddar, lettuce and tomato, ketchup */
+.burger--hamburger {
+  --sauce: #c23a22;
+}
+
+/* Crispy Chicken — soft potato bun, golden fillet, pickles and slaw, mayo, checked paper */
+.burger--crispy-chicken {
+  --bun: #e3ae62;
+  --bun-light: #f3cf93;
+  --bun-dark: #c78b3c;
+  --cheese: #f6dc8c;
+  --cheese-dark: #e7c463;
+  --green: #a9bf6a;
+  --green-dark: #6f8a33;
+  --sauce: #fbf3df;
+  --wrap: #fff4dc;
+  --wrap-accent: #f1d38f;
+  --wrap-line: rgb(184 50 30 / 0.22);
+}
+
+.burger--crispy-chicken .burger__ing--top-bun .burger__detail {
+  background: radial-gradient(ellipse 30% 22% at 62% 24%, rgb(255 255 255 / 0.22), transparent 70%);
+}
+
+.burger--crispy-chicken .burger__ing--patty {
+  width: 102%;
+  aspect-ratio: 5.2 / 1;
+  border-radius: 38% 46% 42% 50% / 58% 52% 62% 48%;
+  background:
+    radial-gradient(circle at 12% 30%, #f6c66a 0 3%, transparent 4%),
+    radial-gradient(circle at 30% 70%, #b9661c 0 2.4%, transparent 3.4%),
+    radial-gradient(circle at 52% 28%, #f6c66a 0 3%, transparent 4%),
+    radial-gradient(circle at 66% 68%, #b9661c 0 2.6%, transparent 3.6%),
+    radial-gradient(circle at 84% 34%, #f6c66a 0 2.8%, transparent 3.8%),
+    radial-gradient(circle at 94% 64%, #b9661c 0 2%, transparent 3%),
+    linear-gradient(180deg, #eaa646, #cf7d24 55%, #a85d18);
+  box-shadow: inset 0 0.2rem 0 rgb(255 230 170 / 0.45);
+}
+
+/* Shredded slaw with pickle rounds */
+.burger--crispy-chicken .burger__ing--toppings {
+  background:
+    radial-gradient(circle at 22% 50%, #4f6b23 0 9%, #8aa548 9.5% 15%, transparent 15.5%),
+    radial-gradient(circle at 52% 50%, #4f6b23 0 9%, #8aa548 9.5% 15%, transparent 15.5%),
+    radial-gradient(circle at 80% 50%, #4f6b23 0 9%, #8aa548 9.5% 15%, transparent 15.5%),
+    repeating-linear-gradient(105deg, #f4ecd2 0 2%, #dfe7bd 2% 3.5%);
+}
+
+.burger--crispy-chicken .burger__ing--toppings .burger__detail {
+  display: none;
+}
+
+.burger--crispy-chicken .burger__ing--sauce {
+  box-shadow: inset 0 0 0 1.5px rgb(43 27 20 / 0.14);
+}
+
+/* Bacon Cheese — glossy brioche, grill-marked patty, thick cheddar, bacon strips, smoky sauce, kraft paper */
+.burger--bacon-cheese {
+  --bun: #b8692c;
+  --bun-light: #dd9550;
+  --bun-dark: #8c4a1c;
+  --patty: #5a3220;
+  --patty-dark: #3a1f13;
+  --patty-light: #74452c;
+  --cheese: #f39c1f;
+  --cheese-dark: #dd7f12;
+  --sauce: #7a3417;
+  --wrap: #caa173;
+  --wrap-accent: #b88b5c;
+  --wrap-line: rgb(43 27 20 / 0.2);
+}
+
+.burger--bacon-cheese .burger__ing--top-bun {
+  background:
+    radial-gradient(ellipse 34% 26% at 36% 24%, rgb(255 236 200 / 0.5), transparent 70%),
+    linear-gradient(180deg, var(--bun-light), var(--bun) 45%, var(--bun-dark));
+}
+
+.burger--bacon-cheese .burger__ing--patty {
+  background:
+    repeating-linear-gradient(115deg, transparent 0 9%, rgb(25 12 6 / 0.45) 9% 10.5%),
+    linear-gradient(180deg, var(--patty-light), var(--patty) 35%, var(--patty-dark));
+}
+
+.burger--bacon-cheese .burger__ing--cheese {
+  aspect-ratio: 12 / 1;
+}
+
+/* Wavy bacon strips */
+.burger--bacon-cheese .burger__ing--toppings {
+  width: 104%;
+  border-radius: 30% 44% 36% 48% / 70% 50% 70% 50%;
+  background:
+    repeating-linear-gradient(170deg, #a8321f 0 14%, #e9a089 14% 20%, #8e2617 20% 30%, #f1b8a1 30% 34%);
+}
+
+.burger--bacon-cheese .burger__ing--toppings .burger__detail {
+  background: linear-gradient(180deg, var(--green), var(--green-dark));
+  inset: auto 10% -16% 10%;
+  height: 40%;
+}
+
+/* Chilli Cheese — toasted bun with chilli flakes, chilli and jalapeño rings, red sauce, striped paper */
+.burger--chilli-cheese {
+  --bun: #b5642a;
+  --bun-light: #d88a47;
+  --bun-dark: #86441a;
+  --seed: #d3341d;
+  --cheese: #f2b52f;
+  --cheese-dark: #e0901d;
+  --sauce: #a51f12;
+  --wrap: #fbeee0;
+  --wrap-accent: #f3d7c3;
+  --wrap-line: rgb(165 31 18 / 0.32);
+}
+
+.burger--chilli-cheese .burger__ing--top-bun .burger__detail {
+  opacity: 0.9;
+}
+
+.burger--chilli-cheese .burger__ing--toppings {
+  background:
+    radial-gradient(circle at 16% 48%, transparent 0 6%, #d32d18 6.5% 13%, transparent 13.5%),
+    radial-gradient(circle at 38% 52%, transparent 0 6%, #4f8a2a 6.5% 13%, transparent 13.5%),
+    radial-gradient(circle at 60% 46%, transparent 0 6%, #d32d18 6.5% 13%, transparent 13.5%),
+    radial-gradient(circle at 82% 52%, transparent 0 6%, #4f8a2a 6.5% 13%, transparent 13.5%),
+    linear-gradient(180deg, #8f3b1e, #6a2a14);
+}
+
+.burger--chilli-cheese .burger__ing--toppings .burger__detail {
+  display: none;
+}
+
+.burger--chilli-cheese .burger__ing--sauce::after {
+  content: '';
+  position: absolute;
+  left: 40%;
+  top: 50%;
+  width: 4%;
+  height: 220%;
+  border-radius: 0 0 999px 999px;
+  background: var(--sauce);
+}
+
+.burger--chilli-cheese .burger__ing--wrapper {
+  background:
+    repeating-linear-gradient(90deg, var(--wrap) 0 8%, rgb(165 31 18 / 0.18) 8% 12%),
+    linear-gradient(180deg, var(--wrap-accent), var(--wrap) 40%);
+}
+
+/* ================================================================== */
+/* Variants                                                            */
+/* ================================================================== */
+
+/* Builder: the layers separate, so each slot reads as its own step. */
+.burger--builder .burger__stack,
+.burger--compact .burger__stack {
+  gap: 0.55rem;
+}
+
+.burger--compact .burger__stack {
+  gap: 0.25rem;
+}
+
+.burger--builder .burger__ing,
+.burger--compact .burger__ing {
+  margin-top: 0;
+  cursor: pointer;
+}
+
+.burger--builder .burger__ing--wrapper,
+.burger--compact .burger__ing--wrapper {
+  aspect-ratio: 7 / 1;
+}
+
+.burger--builder .burger__shadow,
+.burger--compact .burger__shadow {
+  display: none;
+}
+
+/* Empty layers stay as a faint outline, so the burger visibly fills up. */
+.burger--builder .burger__ing[data-state='empty'],
+.burger--builder .burger__ing[data-state='skipped'],
+.burger--compact .burger__ing[data-state='empty'],
+.burger--compact .burger__ing[data-state='skipped'] {
+  opacity: 0.32;
+  filter: saturate(0.35);
+}
+
+.burger--builder .burger__ing[data-state='not-needed'],
+.burger--compact .burger__ing[data-state='not-needed'] {
+  opacity: 0.14;
+  filter: grayscale(1);
+}
+
+.burger--builder .burger__ing[data-active],
+.burger--compact .burger__ing[data-active] {
+  opacity: 1;
+  filter: none;
+  transform: translateX(6%) scale(1.04);
+  outline: 3px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.burger--compact .burger__ing[data-active] {
+  outline-width: 2px;
+  outline-offset: 2px;
+}
+
+/* Card: a small, assembled burger */
+.burger--card .burger__shadow {
+  display: none;
+}

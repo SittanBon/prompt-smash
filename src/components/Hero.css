@@ -59,8 +59,13 @@
   align-self: start;
 }
 
+.hero__display:focus {
+  outline: none;
+}
+
 .hero__badge {
   position: absolute;
+  z-index: 3;
   top: 3%;
   right: -9%;
 }
@@ -113,6 +118,21 @@
   color: var(--color-ink-soft);
 }
 
+.hero__bite-note {
+  text-decoration: none;
+  border-radius: 0.5rem;
+  padding-inline: 0.25rem;
+}
+
+.hero__bite-note:hover .hero__bite-link {
+  text-decoration: underline;
+}
+
+.hero__bite-link {
+  color: var(--color-tomato-deep);
+  font-weight: 600;
+}
+
 .hero__bite-note strong {
   color: var(--color-ink);
   letter-spacing: 0.04em;
@@ -129,6 +149,10 @@
 }
 
 .scroll-cue {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
   justify-self: center;
   align-self: end;
   display: inline-flex;

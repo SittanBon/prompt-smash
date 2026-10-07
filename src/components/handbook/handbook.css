@@ -1,0 +1,164 @@
+/* Shared handbook chapters */
+.handbook {
+  display: grid;
+  grid-template-columns: minmax(0, 46rem) minmax(12rem, 16rem);
+  justify-content: center;
+  align-items: start;
+  gap: var(--space-2xl);
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--space-xl) var(--gutter);
+}
+
+.handbook__body {
+  display: grid;
+  gap: var(--space-lg);
+  min-width: 0;
+}
+
+.handbook__next {
+  position: sticky;
+  top: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+}
+
+.handbook__next .chips {
+  flex-direction: column;
+}
+
+@media (max-width: 63.99rem) {
+  .handbook {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .handbook__next {
+    position: static;
+  }
+
+  .handbook__next .chips {
+    flex-direction: row;
+  }
+}
+
+.hb-section {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.hb-section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hb-check {
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+}
+
+.hb-journeys {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--space-sm);
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hb-journeys__link {
+  display: grid;
+  gap: 0.15rem;
+  height: 100%;
+  padding: var(--space-md);
+  border: var(--border-control);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  text-decoration: none;
+}
+
+.hb-journeys__link:hover {
+  background: var(--color-cream-deep);
+}
+
+.hb-journeys__best {
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.hb-bite,
+.hb-steps {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hb-bite__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+}
+
+.hb-bite__item > div {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.hb-example {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 0.75rem;
+  background: var(--color-cream);
+}
+
+.hb-steps__item {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--color-mustard);
+}
+
+.levels--case .levels__col {
+  background: var(--color-paper);
+}
+
+.glossary {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.glossary__item {
+  display: grid;
+  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: var(--border-hairline);
+}
+
+.glossary__item dt {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.glossary__item dd {
+  margin: 0;
+}
+
+@media (max-width: 40rem) {
+  .glossary__item {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}

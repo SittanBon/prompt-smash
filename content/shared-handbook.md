@@ -246,8 +246,8 @@ A multi-location retail organisation in the DACH region had a workflow that took
 ### 2. A small n8n proof of concept
 The work started small: a proof of concept built in n8n, a workflow-automation tool. A proof of concept shows whether an idea can work before anyone depends on it.
 
-### 3. A controlled 2+2 pilot
-Next came a controlled pilot in a 2+2 set-up. A small, controlled pilot lets a team try a workflow in real conditions, find problems and adjust it before any wider rollout.
+### 3. A four-location pilot comparison
+Next came a pilot comparison. Two locations used the new AI-assisted workflow while two comparable locations continued with the existing workflow, across four locations in total. A small pilot lets a team try a workflow in real conditions, find problems and adjust it before any wider rollout. It was a practical comparison, not a formal scientific experiment.
 
 ### 4. A seven-person adoption workshop
 Seven people took part in an adoption workshop. A workflow only helps if the people using it understand it and their own part in it.
@@ -300,7 +300,7 @@ Rules and Boundaries:
 
 ### Implemented in the project
 - A small proof of concept in n8n
-- A controlled 2+2 pilot
+- A pilot comparison: two locations used the new AI-assisted workflow while two comparable locations continued with the existing workflow
 - A seven-person adoption workshop
 - Human approval before results were used
 - Data minimisation: only the data the task needed was used
@@ -380,8 +380,6 @@ A better prompt makes a good result more likely. It cannot guarantee that an AI�
 
 Your prompts stay with you. This page explains what is saved, where, and how to remove it.
 
-> *Status: describes planned behaviour. It becomes true when the interface is built and checked.*
-
 ### No account, no server database
 You do not need an account. There is no server database storing your work.
 
@@ -421,18 +419,14 @@ Do not enter personal or confidential information unless your prompt really need
 
 ## 8. Accessibility help
 
-Prompt Smash is being designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.
+Prompt Smash is designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.
 
-> *Status: describes planned behaviour. It becomes true when the interface is built and checked.*
-
-*These features are planned. They are being built with the interactive journeys, and this page will be updated once each one has been built and tested.*
-
-- **Keyboard navigation:** Every control will be reachable with the Tab key and usable with Enter or Space, with a clearly visible focus outline. A skip link will lead straight to the main content.
-- **Progress controls:** The seven-step progress indicator will be an ordered list that screen readers announce with each step’s number, name and state. Completed steps can be selected and revisited.
-- **Reduced motion:** If your device is set to reduce motion, the burger will open in simple steps without animation. All content stays available.
-- **Simple and Pro modes:** You will be able to switch between Simple and Pro explanations at any time without losing your answers.
-- **Mobile bottom sheet:** On small screens, your live prompt will open in a panel from the bottom of the screen, which you can open and close with a clearly labelled button.
-- **Not by colour alone:** States such as Required, Needs attention and Completed will always use words or icons as well as colour.
+- **Keyboard navigation:** Every control is reachable with the Tab key and usable with Enter or Space, with a clearly visible focus outline. A skip link leads straight to the main content.
+- **Progress controls:** The seven-step progress indicator is an ordered list that screen readers announce with each step’s number, name and state. Every step can be selected and revisited.
+- **Reduced motion:** If your device is set to reduce motion, the burger and panels change in simple steps without animation. All content stays available.
+- **Simple and Pro modes:** You can switch between Simple and Pro explanations at any time without losing your answers.
+- **Mobile bottom sheet:** On small screens, your live prompt opens in a panel from the bottom of the screen, which you can open and close with a clearly labelled button.
+- **Not by colour alone:** States such as Required, Needs attention and Completed always use words or icons as well as colour.
 
 If something does not work for you, please tell us through the project’s contact channel once it is published.
 

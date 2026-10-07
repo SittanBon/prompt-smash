@@ -75,7 +75,8 @@ The first prompt leaves the AI to guess the purpose, the facts, the tone and the
 | **Why this ingredient** | The top bun sits on top and shows the purpose first. |
 
 #### Simple
-- **Definition:** The Goal says what the result should help you achieve, and why you need it.
+- **Definition (universal):** The Goal says what the result should help you achieve, and why you need it.
+- **In this journey:** For a content plan, this may mean the campaign outcome it supports and who will use the plan.
 - **Learner question:** What should this result help you achieve?
 - **Tiny example:** So my team can approve the launch-week plan in one meeting.
 - **Practical tip:** Finish the sentence “This should help me…”. If your answer starts with an instruction for the AI, such as “Write…”, that belongs in the Task.
@@ -135,7 +136,8 @@ The Goal is the outcome you want; the Task is the action you ask the AI to perfo
 | **Why this ingredient** | The patty is the core of the burger, just as the Task is the main job. |
 
 #### Simple
-- **Definition:** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **Definition (universal):** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **In this journey:** For text work, this may mean draft, plan, rewrite, summarise or compare.
 - **Learner question:** What should the AI do?
 - **Tiny example:** Draft a one-week content plan for Instagram, email and our in-store screen.
 - **Practical tip:** Start with one clear action verb. If you need several actions, list them in the order the AI should do them.
@@ -195,7 +197,8 @@ Create or draft: write something new. Summarise: make something shorter while ke
 | **Why this ingredient** | Cheese melts into everything, just as background information shapes the whole answer. |
 
 #### Simple
-- **Definition:** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **Definition (universal):** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **In this journey:** For text work, this may mean an approved brief, notes, earlier posts or product facts.
 - **Learner question:** What does the AI need to know or use?
 - **Tiny example:** The approved campaign brief, pasted below the prompt.
 - **Practical tip:** Paste the real source material and mark clearly where it starts and ends.
@@ -265,7 +268,8 @@ This layer has two parts. Your answer says what the AI should work from, for exa
 | **Why this ingredient** | You choose toppings one by one, just as you choose the details the answer must include. |
 
 #### Simple
-- **Definition:** Requirements and Details are the specific things the result must include, cover or consider.
+- **Definition (universal):** Requirements and Details are the specific things the result must include, cover or consider.
+- **In this journey:** For a content plan, this may mean channels, dates, lengths or points each item must cover.
 - **Learner question:** What must the result include?
 - **Tiny example:** Five Instagram posts, one email and three screen slides, each carrying the key message.
 - **Practical tip:** Write each requirement so that someone could tick it off. “Mention the offer twice” can be checked; “make it complete” cannot.
@@ -330,7 +334,8 @@ A useful requirement is specific and checkable: a number, a named item or a clea
 | **Why this ingredient** | Sauce adds flavour and finish, just as Style and Quality shape how the result sounds. |
 
 #### Simple
-- **Definition:** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **Definition (universal):** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **In this journey:** For text, this may mean tone of voice, reading level and how polished the draft must be.
 - **Learner question:** How should the result sound or feel?
 - **Tiny example:** Warm and calm, with no exclamation marks or pressure phrases.
 - **Practical tip:** Describe the tone with something concrete: a comparison, words to avoid or a short sample sentence. Piling up adjectives rarely helps.
@@ -391,7 +396,8 @@ Some tasks have no audience to please: extracting dates from a document, sorting
 | **Why this ingredient** | The bottom bun holds everything together, just as the Output Format gives the answer its shape. |
 
 #### Simple
-- **Definition:** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **Definition (universal):** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **In this journey:** For text, this may mean a table, a checklist, headings or a short paragraph.
 - **Learner question:** How should the answer be structured?
 - **Tiny example:** A table with columns for day, channel, content idea and draft text.
 - **Practical tip:** Think about what you will do with the answer next. If it goes into a spreadsheet, ask for a table. If a program will read it, ask for JSON.
@@ -453,7 +459,8 @@ Table: comparing items or planning by date. Numbered steps: instructions in orde
 | **Why this ingredient** | The wrapper sits beneath and folds around the whole burger, because its rules apply to every layer. |
 
 #### Simple
-- **Definition:** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **Definition (universal):** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **In this journey:** For text, this may mean facts not to invent, claims to avoid and gaps to flag for checking.
 - **Learner question:** What should the AI avoid, limit, check or flag?
 - **Tiny example:** Use only facts from the brief, and write [CHECK] instead of guessing.
 - **Practical tip:** Write each boundary as a clear instruction, and say what the AI should do instead, such as flagging a gap rather than filling it.

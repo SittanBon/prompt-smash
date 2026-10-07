@@ -68,6 +68,7 @@ export const hamburger: JourneyContentStrict = {
       status: 'required',
       simple: {
         definition: 'The Goal says what the result should help you achieve, and why you need it.',
+        domainClause: 'For a content plan, this may mean the campaign outcome it supports and who will use the plan.',
         learnerQuestion: 'What should this result help you achieve?',
         example: 'So my team can approve the launch-week plan in one meeting.',
         tip: 'Finish the sentence “This should help me…”. If your answer starts with an instruction for the AI, such as “Write…”, that belongs in the Task.',
@@ -129,6 +130,7 @@ export const hamburger: JourneyContentStrict = {
       status: 'required',
       simple: {
         definition: 'The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.',
+        domainClause: 'For text work, this may mean draft, plan, rewrite, summarise or compare.',
         learnerQuestion: 'What should the AI do?',
         example: 'Draft a one-week content plan for Instagram, email and our in-store screen.',
         tip: 'Start with one clear action verb. If you need several actions, list them in the order the AI should do them.',
@@ -189,6 +191,7 @@ export const hamburger: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Context and Input is the background and source material the AI needs, such as a brief, notes or data.',
+        domainClause: 'For text work, this may mean an approved brief, notes, earlier posts or product facts.',
         learnerQuestion: 'What does the AI need to know or use?',
         example: 'The approved campaign brief, pasted below the prompt.',
         tip: 'Paste the real source material and mark clearly where it starts and ends.',
@@ -251,6 +254,7 @@ export const hamburger: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Requirements and Details are the specific things the result must include, cover or consider.',
+        domainClause: 'For a content plan, this may mean channels, dates, lengths or points each item must cover.',
         learnerQuestion: 'What must the result include?',
         example: 'Five Instagram posts, one email and three screen slides, each carrying the key message.',
         tip: 'Write each requirement so that someone could tick it off. “Mention the offer twice” can be checked; “make it complete” cannot.',
@@ -318,6 +322,7 @@ export const hamburger: JourneyContentStrict = {
       statusNote: 'Usually worth adding for public content. Mark it Not needed with a reason if tone does not matter.',
       simple: {
         definition: 'Style and Quality describe how the result should sound or feel, and how polished it needs to be.',
+        domainClause: 'For text, this may mean tone of voice, reading level and how polished the draft must be.',
         learnerQuestion: 'How should the result sound or feel?',
         example: 'Warm and calm, with no exclamation marks or pressure phrases.',
         tip: 'Describe the tone with something concrete: a comparison, words to avoid or a short sample sentence. Piling up adjectives rarely helps.',
@@ -377,6 +382,7 @@ export const hamburger: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.',
+        domainClause: 'For text, this may mean a table, a checklist, headings or a short paragraph.',
         learnerQuestion: 'How should the answer be structured?',
         example: 'A table with columns for day, channel, content idea and draft text.',
         tip: 'Think about what you will do with the answer next. If it goes into a spreadsheet, ask for a table. If a program will read it, ask for JSON.',
@@ -442,6 +448,7 @@ export const hamburger: JourneyContentStrict = {
       statusNote: 'This content will be published, so clear limits matter.',
       simple: {
         definition: 'Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.',
+        domainClause: 'For text, this may mean facts not to invent, claims to avoid and gaps to flag for checking.',
         learnerQuestion: 'What should the AI avoid, limit, check or flag?',
         example: 'Use only facts from the brief, and write [CHECK] instead of guessing.',
         tip: 'Write each boundary as a clear instruction, and say what the AI should do instead, such as flagging a gap rather than filling it.',

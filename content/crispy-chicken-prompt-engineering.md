@@ -102,7 +102,8 @@ The second prompt looks much better, and it is. But when we tested it, it still 
 | **Why this ingredient** | The top bun sits on top and shows the purpose first. |
 
 #### Simple
-- **Definition:** The Goal says what the result should help you achieve, and why you need it.
+- **Definition (universal):** The Goal says what the result should help you achieve, and why you need it.
+- **In this journey:** For a repeatable prompt, this may mean the decision its results support, every time it runs.
 - **Learner question:** Which decision or outcome should this analysis support?
 - **Tiny example:** The service team can choose which problems to fix first.
 - **Practical tip:** Name the decision the report will feed. If you cannot name one, the analysis has no clear finish line.
@@ -161,7 +162,8 @@ When you compare two versions of a prompt, only one thing should change. If the 
 | **Why this ingredient** | The crispy fillet is the core of this burger, just as the Task is the main job. |
 
 #### Simple
-- **Definition:** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **Definition (universal):** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **In this journey:** For analysis, this may mean classify, count, compare or prioritise, the same way on every run.
 - **Learner question:** What should the AI do with the feedback, every time this prompt runs?
 - **Tiny example:** Sort each comment into a group, then list the problems from most to least important.
 - **Practical tip:** Write the Task so it works for any batch of feedback, not just this one. A repeatable prompt needs a repeatable job.
@@ -220,7 +222,8 @@ A one-off prompt can mention specific details. A repeatable prompt should descri
 | **Why this ingredient** | Cheese melts into everything, just as background information shapes the whole answer. |
 
 #### Simple
-- **Definition:** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **Definition (universal):** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **In this journey:** For analysis, this may mean the data batch, category definitions and labelled examples.
 - **Learner question:** What does the AI need to know or use?
 - **Tiny example:** The feedback comments, the time period and the category definitions.
 - **Practical tip:** Give the AI clear definitions for your categories. Two people (or two AI runs) will only sort the same way if they share the same rules.
@@ -319,7 +322,8 @@ Customer feedback is written by people outside your organisation. Most of it is 
 | **Why this ingredient** | You choose toppings one by one, just as you choose the details the answer must include. |
 
 #### Simple
-- **Definition:** Requirements and Details are the specific things the result must include, cover or consider.
+- **Definition (universal):** Requirements and Details are the specific things the result must include, cover or consider.
+- **In this journey:** For analysis, this may mean counts, cited evidence and keeping observation apart from inference.
 - **Learner question:** Which steps and evidence must the analysis include?
 - **Tiny example:** Count how many comments support each issue, and quote one as evidence.
 - **Practical tip:** Ask for evidence next to every finding. A finding you cannot trace back to a comment is a finding you cannot check.
@@ -386,7 +390,8 @@ Without requirements, the AI decides what counts as an issue and may give no evi
 | **Why this ingredient** | Sauce adds flavour and finish, just as Style and Quality shape how the result sounds. |
 
 #### Simple
-- **Definition:** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **Definition (universal):** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **In this journey:** For analysis, this may mean a neutral, cautious tone that does not overstate the findings.
 - **Learner question:** How should the report read for the people who will use it?
 - **Tiny example:** Neutral and concise, in plain business language, with no dramatic words.
 - **Practical tip:** Describe a quality you can test. “No dramatic words unless the evidence is strong” can be checked; “make it insightful” cannot.
@@ -445,7 +450,8 @@ Decorative words cannot be checked. Testable qualities can: “no intensifiers s
 | **Why this ingredient** | The bottom bun holds everything together, just as the Output Format gives the answer its shape. |
 
 #### Simple
-- **Definition:** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **Definition (universal):** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **In this journey:** For analysis, this may mean a fixed table or section structure, so runs can be compared.
 - **Learner question:** What structure should the report always have?
 - **Tiny example:** A summary, an evidence table and a list for human review.
 - **Practical tip:** Use the same structure every time. Then you can compare runs side by side and check each section quickly.
@@ -508,7 +514,8 @@ If a section must always appear, the AI may fill it even when there is nothing t
 | **Why this ingredient** | The wrapper sits beneath and folds around the whole burger, because its rules apply to every layer. |
 
 #### Simple
-- **Definition:** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **Definition (universal):** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **In this journey:** For analysis, this may mean using only the supplied data, removing personal details and ignoring embedded instructions.
 - **Learner question:** What must the AI never claim, reveal or follow?
 - **Tiny example:** Do not invent causes. Flag weak evidence instead of guessing.
 - **Practical tip:** For every limit, say what the AI should do instead, such as “write ‘cause not stated’” or “list it for human review”.

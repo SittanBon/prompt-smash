@@ -60,7 +60,8 @@ The first prompt leaves the tool to choose the burger, the angle, the light, the
 | **Why this ingredient** | The top bun sits on top and shows the purpose first. |
 
 #### Simple
-- **Definition:** The Goal says what the result should help you achieve, and why you need it.
+- **Definition (universal):** The Goal says what the result should help you achieve, and why you need it.
+- **In this journey:** For an image, this may mean where it will appear, who will see it and what it should achieve.
 - **Learner question:** What is this image for, and who will see it?
 - **Tiny example:** A homepage image that makes first-time visitors want to start learning.
 - **Practical tip:** Name where the image will appear and who will look at it. A hero image, a social post and a product page need different pictures.
@@ -120,7 +121,8 @@ A hero image usually needs calm, empty space where the heading will sit. A socia
 | **Why this ingredient** | The patty is the core of the burger, just as the Task is the main job. |
 
 #### Simple
-- **Definition:** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **Definition (universal):** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **In this journey:** For an image, this may mean generate, edit, extend or create a variation.
 - **Learner question:** Should the AI create a new image, edit one, extend one or make a variation?
 - **Tiny example:** Generate a new, original image of a burger with its layers floating apart.
 - **Practical tip:** Say whether you want a brand-new image or a change to an existing one. Editing and generating need different instructions.
@@ -179,7 +181,8 @@ Generate: create a new image from your description. Edit: change part of an exis
 | **Why this ingredient** | Melted cheddar spreads through everything, just as the scene and references shape the whole image. |
 
 #### Simple
-- **Definition:** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **Definition (universal):** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **In this journey:** For an image, this may mean the scene, the page layout around it and approved reference images.
 - **Learner question:** What scene, setting or approved reference should the AI work from?
 - **Tiny example:** The image sits behind the website heading. No reference images are attached.
 - **Practical tip:** Say how the image will be used on the page, and list any approved reference images and what each one is for.
@@ -241,7 +244,8 @@ A reference can show a mood, a layout or what a subject looks like. It cannot gu
 | **Why this ingredient** | You choose toppings one by one, just as you choose what appears in the picture. |
 
 #### Simple
-- **Definition:** Requirements and Details are the specific things the result must include, cover or consider.
+- **Definition (universal):** Requirements and Details are the specific things the result must include, cover or consider.
+- **In this journey:** For an image, this may mean the subject, its position in the frame, the viewpoint and the shot size.
 - **Learner question:** What must be in the picture, and where?
 - **Tiny example:** The burger sits in the right third, seen from slightly below, with the whole stack visible.
 - **Practical tip:** Describe what you would see: the subject, what it is doing, where it sits in the frame and from which angle. Keep the look for Style and Quality.
@@ -308,7 +312,8 @@ Viewpoint is where you seem to stand: above the subject, level with it or below 
 | **Why this ingredient** | Sauce adds flavour and finish, just as Style and Quality shape how the image looks. |
 
 #### Simple
-- **Definition:** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **Definition (universal):** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **In this journey:** For an image, this may mean the medium, lighting, colour palette and level of realism.
 - **Learner question:** How should the image look and feel?
 - **Tiny example:** Photorealistic studio food photography, soft light from the upper left, warm cream tones.
 - **Practical tip:** Describe the medium, the light and the colours with concrete words. “Beautiful” and “high quality” give the tool nothing to follow.
@@ -376,7 +381,8 @@ Words like “85mm lens” or “shallow depth of field” describe how photos o
 | **Why this ingredient** | The bottom bun holds everything together, just as the Output Format gives the image its shape. |
 
 #### Simple
-- **Definition:** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **Definition (universal):** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **In this journey:** For an image, this may mean aspect ratio, orientation, resolution or transparency.
 - **Learner question:** What shape and size should the image be, and how many do you need?
 - **Tiny example:** Landscape, 16:9, at least 2560 × 1440 pixels, four options.
 - **Practical tip:** Check where the image will be used. A website banner, a phone screen and a square post need different shapes.
@@ -439,7 +445,8 @@ A wide 16:9 image works on a desktop screen but may be cropped to a tall shape o
 | **Why this ingredient** | The wrapper sits beneath and folds around the whole burger, because its rules apply to every layer. |
 
 #### Simple
-- **Definition:** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **Definition (universal):** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **In this journey:** For an image, this may mean what must not appear, change or be copied, such as text, logos or real faces.
 - **Learner question:** What must not appear, change or be copied?
 - **Tiny example:** No text, logos or people. Do not imitate any real brand or restaurant.
 - **Practical tip:** List what must stay out of the picture, and for edits, what must not change. Keep the list short and clear.

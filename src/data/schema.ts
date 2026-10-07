@@ -42,8 +42,14 @@ export type BiteReviewState = 'not-yet-checked' | 'clear' | 'needs-attention' | 
 
 /** Simple mode: short, concrete, minimal jargon. */
 export interface SimpleContent {
-  /** One sentence, 25 words or fewer. */
+  /** One sentence, 25 words or fewer. Universal: identical in every journey. */
   definition: string;
+  /**
+   * Journey-specific example clause, shown after the universal definition as
+   * secondary text ("For an image, this may mean…"). It clarifies the
+   * definition for this burger without changing the layer's meaning.
+   */
+  domainClause: string;
   /** The question the learner should ask themselves. */
   learnerQuestion: string;
   /** One tiny illustration, 20 words or fewer (not the full example answer). */

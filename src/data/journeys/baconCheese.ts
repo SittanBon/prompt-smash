@@ -58,6 +58,7 @@ export const baconCheese: JourneyContentStrict = {
       status: 'required',
       simple: {
         definition: 'The Goal says what the result should help you achieve, and why you need it.',
+        domainClause: 'For an image, this may mean where it will appear, who will see it and what it should achieve.',
         learnerQuestion: 'What is this image for, and who will see it?',
         example: 'A homepage image that makes first-time visitors want to start learning.',
         tip: 'Name where the image will appear and who will look at it. A hero image, a social post and a product page need different pictures.',
@@ -117,6 +118,7 @@ export const baconCheese: JourneyContentStrict = {
       status: 'required',
       simple: {
         definition: 'The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.',
+        domainClause: 'For an image, this may mean generate, edit, extend or create a variation.',
         learnerQuestion: 'Should the AI create a new image, edit one, extend one or make a variation?',
         example: 'Generate a new, original image of a burger with its layers floating apart.',
         tip: 'Say whether you want a brand-new image or a change to an existing one. Editing and generating need different instructions.',
@@ -174,6 +176,7 @@ export const baconCheese: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Context and Input is the background and source material the AI needs, such as a brief, notes or data.',
+        domainClause: 'For an image, this may mean the scene, the page layout around it and approved reference images.',
         learnerQuestion: 'What scene, setting or approved reference should the AI work from?',
         example: 'The image sits behind the website heading. No reference images are attached.',
         tip: 'Say how the image will be used on the page, and list any approved reference images and what each one is for.',
@@ -237,6 +240,7 @@ export const baconCheese: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Requirements and Details are the specific things the result must include, cover or consider.',
+        domainClause: 'For an image, this may mean the subject, its position in the frame, the viewpoint and the shot size.',
         learnerQuestion: 'What must be in the picture, and where?',
         example: 'The burger sits in the right third, seen from slightly below, with the whole stack visible.',
         tip: 'Describe what you would see: the subject, what it is doing, where it sits in the frame and from which angle. Keep the look for Style and Quality.',
@@ -308,6 +312,7 @@ export const baconCheese: JourneyContentStrict = {
       statusNote: 'Almost always worth adding for images. Mark it Not needed only if you deliberately want the tool’s default look.',
       simple: {
         definition: 'Style and Quality describe how the result should sound or feel, and how polished it needs to be.',
+        domainClause: 'For an image, this may mean the medium, lighting, colour palette and level of realism.',
         learnerQuestion: 'How should the image look and feel?',
         example: 'Photorealistic studio food photography, soft light from the upper left, warm cream tones.',
         tip: 'Describe the medium, the light and the colours with concrete words. “Beautiful” and “high quality” give the tool nothing to follow.',
@@ -379,6 +384,7 @@ export const baconCheese: JourneyContentStrict = {
       status: 'recommended',
       simple: {
         definition: 'Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.',
+        domainClause: 'For an image, this may mean aspect ratio, orientation, resolution or transparency.',
         learnerQuestion: 'What shape and size should the image be, and how many do you need?',
         example: 'Landscape, 16:9, at least 2560 × 1440 pixels, four options.',
         tip: 'Check where the image will be used. A website banner, a phone screen and a square post need different shapes.',
@@ -445,6 +451,7 @@ export const baconCheese: JourneyContentStrict = {
       statusNote: 'This image will be published, so clear exclusions and rights limits matter.',
       simple: {
         definition: 'Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.',
+        domainClause: 'For an image, this may mean what must not appear, change or be copied, such as text, logos or real faces.',
         learnerQuestion: 'What must not appear, change or be copied?',
         example: 'No text, logos or people. Do not imitate any real brand or restaurant.',
         tip: 'List what must stay out of the picture, and for edits, what must not change. Keep the list short and clear.',

@@ -20,9 +20,19 @@ export type LayerAnswer =
 
 export type PromptAnswers = Partial<Record<LayerKey, LayerAnswer>>;
 
+export interface PromptSection {
+  key: LayerKey;
+  /** Section heading, e.g. "Goal". */
+  label: string;
+  /** The learner's answer inside the layer's template. */
+  body: string;
+}
+
 export interface AssembledPrompt {
   /** The exact text that is copied or downloaded. Never contains interface text. */
   text: string;
+  /** The same sections as `text`, kept apart so the preview can highlight one. */
+  sections: PromptSection[];
   /** Layer keys that produced a section, in fixed order (for preview highlighting). */
   includedLayers: LayerKey[];
   /** Required layers still empty. Copying is blocked until this is empty. */
@@ -78,7 +88,7 @@ const SECTION_SEPARATOR = '\n\n';
 
 /** Build the prompt from the learner's answers. Pure and deterministic. */
 export function assemblePrompt(layers: readonly LayerContent[], answers: PromptAnswers): AssembledPrompt {
-  const sections: string[] = [];
+  const sections: PromptSection[] = [];
   const includedLayers: LayerKey[] = [];
   const missingRequired: LayerKey[] = [];
   const skipped: LayerKey[] = [];
@@ -91,7 +101,7 @@ export function assemblePrompt(layers: readonly LayerContent[], answers: PromptA
       // A replacer function avoids special `$` patterns in the learner's text.
       const text = answer.text.trim();
       const body = layer.assembly.template.replace('{{answer}}', () => text);
-      sections.push(`${layer.assembly.sectionLabel}:\n${body}`);
+      sections.push({ key: layer.key, label: layer.assembly.sectionLabel, body });
       includedLayers.push(layer.key);
       continue;
     }
@@ -106,7 +116,8 @@ export function assemblePrompt(layers: readonly LayerContent[], answers: PromptA
   }
 
   return {
-    text: sections.join(SECTION_SEPARATOR),
+    text: sections.map((x) => `${x.label}:\n${x.body}`).join(SECTION_SEPARATOR),
+    sections,
     includedLayers,
     missingRequired,
     skipped,

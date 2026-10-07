@@ -96,7 +96,12 @@ export interface AccessibilityPage {
   intro: string;
   status: ImplementationStatus;
   plannedNote: string;
-  features: { name: string; description: string }[];
+  /**
+   * Each feature has a planned and a present-tense description. The interface
+   * shows the present tense only when `implemented` is true, so the page never
+   * describes an unfinished feature as working.
+   */
+  features: { name: string; planned: string; current: string; implemented: boolean }[];
   contact: string;
 }
 

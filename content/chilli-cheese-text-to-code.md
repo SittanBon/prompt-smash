@@ -83,7 +83,8 @@ The first prompt leaves the AI to guess the versions, the behaviour, the users, 
 | **Why this ingredient** | The top bun sits on top and shows the purpose first. |
 
 #### Simple
-- **Definition:** The Goal says what the result should help you achieve, and why you need it.
+- **Definition (universal):** The Goal says what the result should help you achieve, and why you need it.
+- **In this journey:** For code, this may mean the problem the feature solves and who will use it.
 - **Learner question:** What should this code make possible for users or for the project?
 - **Tiny example:** Learners can see where they are and return to any completed step.
 - **Practical tip:** Describe the outcome for a person, not the code. “Learners can…” is a Goal; “Write a component” is a Task.
@@ -143,7 +144,8 @@ The Goal is what changes for people: “learners can see their progress”. The 
 | **Why this ingredient** | The patty is the core of the burger, just as the Task is the main job. |
 
 #### Simple
-- **Definition:** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **Definition (universal):** The Task is the action you want the AI to perform, described with a clear verb such as create, compare or summarise.
+- **In this journey:** For code, this may mean build, fix, refactor, explain or write tests.
 - **Learner question:** Should the AI create, explain, debug, refactor, review or test code?
 - **Tiny example:** Create a new progress component and its tests. Plan first, then write the code.
 - **Practical tip:** Use one main verb and name what should be produced, such as a component, a fix or a set of tests.
@@ -204,7 +206,8 @@ Create: write something new. Explain: describe what existing code does, without 
 | **Why this ingredient** | Melted cheese spreads through everything, just as your project set-up shapes every line of code. |
 
 #### Simple
-- **Definition:** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **Definition (universal):** Context and Input is the background and source material the AI needs, such as a brief, notes or data.
+- **In this journey:** For code, this may mean the existing code, framework, versions and sample input.
 - **Learner question:** What language, framework, versions and existing code should the AI work with?
 - **Tiny example:** React 19 with TypeScript in strict mode, built with Vite. The existing layer list is below.
 - **Practical tip:** Give the versions you actually use, and paste only the files the change depends on.
@@ -287,7 +290,8 @@ This layer has two parts. Your answer describes the set-up: language, versions, 
 | **Why this ingredient** | You choose toppings one by one, just as you choose each behaviour the code must have. |
 
 #### Simple
-- **Definition:** Requirements and Details are the specific things the result must include, cover or consider.
+- **Definition (universal):** Requirements and Details are the specific things the result must include, cover or consider.
+- **In this journey:** For code, this may mean acceptance criteria, edge cases, error handling and accessibility.
 - **Learner question:** What must the code do, in normal use and in unusual cases?
 - **Tiny example:** Step 3 is current, steps 1–2 are completed and clickable, steps 4–7 are not available yet.
 - **Practical tip:** Write each requirement so that a test could check it. Include one sample input and the result you expect.
@@ -359,7 +363,8 @@ Take each requirement and ask: how would I check it? “The current step has ari
 | **Why this ingredient** | Sauce adds flavour and finish, just as Style and Quality shape how the code reads. |
 
 #### Simple
-- **Definition:** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **Definition (universal):** Style and Quality describe how the result should sound or feel, and how polished it needs to be.
+- **In this journey:** For code, this may mean naming, comments, readability and matching the existing code style.
 - **Learner question:** How should the code read, and what quality standards must it meet?
 - **Tiny example:** Small, readable functions, named exports, matching the existing project style.
 - **Practical tip:** Point to your project’s conventions and name the standards that matter, such as accessibility and security.
@@ -425,7 +430,8 @@ An instruction like “make it secure” may make the AI more careful, but it ca
 | **Why this ingredient** | The bottom bun holds everything together, just as the Output Format gives the answer its shape. |
 
 #### Simple
-- **Definition:** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **Definition (universal):** Output Format describes how the answer should be organised or delivered, such as a table, checklist or short paragraph.
+- **In this journey:** For code, this may mean a patch, complete file, code block, JSON or explanation.
 - **Learner question:** Do you need complete files, a patch, tests, JSON or an explanation?
 - **Tiny example:** A short plan, then each new file in full, then a patch for the one changed file.
 - **Practical tip:** Ask for complete files for new code and a patch for small changes to existing files.
@@ -489,7 +495,8 @@ A full file is best for new code: you can see and copy all of it. A patch is bes
 | **Why this ingredient** | The wrapper sits beneath and folds around the whole burger, because its rules apply to every layer. |
 
 #### Simple
-- **Definition:** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **Definition (universal):** Rules and Boundaries are the limits, things to leave out and checks the AI should respect while doing the task.
+- **In this journey:** For code, this may mean no new packages, no secrets, files not to touch and review before running.
 - **Learner question:** What must the AI not add, change, run or reveal?
 - **Tiny example:** Do not add packages or change any file not listed. No secrets in code.
 - **Practical tip:** Name the files that must not change, and say what the AI should do instead of guessing, such as asking a question.

@@ -1,6 +1,6 @@
 # Prompt Smash!
 
-An interactive, cinematic prompting handbook that teaches how to build effective AI prompts through a hamburger metaphor. It has four journeys: **Hamburger — Prompt Design**, **Crispy Chicken Burger — Prompt Engineering**, **Bacon Cheese Burger — Text-to-Image** and **Chilli Cheese Burger — Text-to-Code**. All written content exists; the interactive interface is not built yet.
+An interactive, cinematic prompting handbook that teaches how to build effective AI prompts through a hamburger metaphor. It has four journeys: **Hamburger — Prompt Design**, **Crispy Chicken Burger — Prompt Engineering**, **Bacon Cheese Burger — Text-to-Image** and **Chilli Cheese Burger — Text-to-Code**. All written content exists, and all four journeys are interactive. They share one engine, and hash routes such as `#/hamburger/layer/goal` work on GitHub Pages. Work is saved only in the browser.
 
 ## Stack
 
@@ -25,8 +25,11 @@ npm run content:check   # check the content rules and that content/*.md is up to
 
 | Path | Purpose |
 |---|---|
-| `src/components/` | UI components (navigation, hero, badge, burger placeholder, journey cards, teaser) |
-| `src/data/` | Content and fixed data (hero copy, journeys, the seven-layer mapping) |
+| `src/app/` | Interface engine: journey registry and themes, hash router, learner state and local saving, copy and download |
+| `src/components/` | Navigation, hero, CSS burger, journey selector and footer |
+| `src/components/journey/` | The shared journey engine: overview, seven-layer builder, live prompt, techniques, testing, exercises, BITE, responsible-AI review, finish |
+| `src/components/handbook/` | Shared handbook chapters |
+| `src/data/` | Typed content (the single source of truth), framework definitions and the prompt assembler |
 | `src/styles/` | Design tokens and global styles |
 | `public/assets/source/` | Approved source assets |
 | `public/assets/generated/` | Approved, optimised generated assets |

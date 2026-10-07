@@ -58,13 +58,28 @@
   background: var(--color-mustard);
 }
 
-.site-nav__journey {
+.site-nav__middle {
   display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.site-nav__journey {
+  display: inline-flex;
   align-items: baseline;
   gap: 0.6rem;
+  min-height: var(--tap-min);
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-pill);
   font-size: var(--text-sm);
   color: var(--color-ink-soft);
   text-align: center;
+  text-decoration: none;
+}
+
+.site-nav__journey:hover {
+  background: var(--color-cream-deep);
 }
 
 .site-nav__journey-label {
@@ -78,6 +93,82 @@
   font-family: var(--font-display);
   font-weight: 600;
   color: var(--color-ink);
+}
+
+/* Handbook disclosure menu */
+.handbook-menu {
+  position: relative;
+}
+
+.handbook-menu__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: var(--tap-min);
+  padding: 0.35rem 1rem;
+  border: var(--border-control);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.handbook-menu__button svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.handbook-menu__button[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.handbook-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: max-content;
+  min-width: 15rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.5rem;
+  border: var(--border-control);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-soft);
+}
+
+.handbook-menu__panel[hidden] {
+  display: none;
+}
+
+.handbook-menu__panel ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.handbook-menu__panel a {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.handbook-menu__panel a:hover {
+  background: var(--color-cream);
+}
+
+.handbook-menu__panel a[aria-current='page'] {
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .mode-toggle {
@@ -120,17 +211,30 @@
   height: 0.85rem;
 }
 
-/* Small screens: journey label wraps beneath the brand row */
+/* Small screens: brand and mode on the first row, journey and handbook below */
 @media (max-width: 47.99rem) {
   .site-nav__inner {
     flex-wrap: wrap;
     row-gap: var(--space-xs);
+    column-gap: var(--space-xs);
+  }
+
+  .site-nav__middle {
+    order: 3;
+    flex-basis: 100%;
+    justify-content: space-between;
   }
 
   .site-nav__journey {
-    order: 3;
-    flex-basis: 100%;
-    justify-content: center;
+    padding-inline: 0.4rem;
+    gap: 0.4rem;
+    text-align: left;
+  }
+
+  .handbook-menu__panel {
+    left: auto;
+    right: 0;
+    transform: none;
   }
 
   .site-nav__brand {
@@ -138,12 +242,40 @@
     padding-right: 0.9rem;
   }
 
-  .site-nav__inner {
-    column-gap: var(--space-xs);
-  }
-
   .mode-toggle__option {
     min-width: 0;
     padding-inline: 0.7rem;
+  }
+}
+
+@media (max-width: 22rem) {
+  .site-nav__journey-label {
+    display: none;
+  }
+
+  .site-nav__inner {
+    flex-wrap: wrap;
+  }
+
+  .site-nav__wordmark {
+    font-size: 0.8125rem;
+  }
+
+  .site-nav__mark {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .mode-toggle__option {
+    padding-inline: 0.5rem;
+  }
+
+  .mode-toggle__check {
+    display: none;
+  }
+
+  .site-nav__brand {
+    padding-right: 0.7rem;
+    gap: 0.4rem;
   }
 }

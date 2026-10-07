@@ -65,6 +65,8 @@ function validate(j, minExercises) {
     if (layer.key !== u.key) err(`${at}: expected key "${u.key}" (fixed order)`);
     if (layer.status !== u.status) err(`${at}: status "${layer.status}" must equal universal "${u.status}"`);
     if (words(layer.simple.definition) > 25) err(`${at}: Simple definition is ${words(layer.simple.definition)} words (max 25)`);
+    if (!/^For (an? )?[a-z -]+, this may mean /.test(layer.simple.domainClause ?? '')) err(`${at}: domain clause must read “For …, this may mean …”`);
+    else if (words(layer.simple.domainClause) > 25) err(`${at}: domain clause is ${words(layer.simple.domainClause)} words (max 25)`);
     if (words(layer.simple.example) > 20) err(`${at}: Simple example is ${words(layer.simple.example)} words (max 20)`);
     if (words(layer.metaphorLink) > 20) err(`${at}: metaphorLink is ${words(layer.metaphorLink)} words (max 20)`);
     if (/\binput\b/i.test(layer.answerField.label)) err(`${at}: field label must not say "input"`);
@@ -142,7 +144,8 @@ function renderLayer(layer, i) {
 | **Why this ingredient** | ${layer.metaphorLink} |
 
 #### Simple
-- **Definition:** ${layer.simple.definition}
+- **Definition (universal):** ${layer.simple.definition}
+- **In this journey:** ${layer.simple.domainClause}
 - **Learner question:** ${layer.simple.learnerQuestion}
 - **Tiny example:** ${layer.simple.example}
 - **Practical tip:** ${layer.simple.tip}${
@@ -574,7 +577,11 @@ function validateShared(sc) {
   for (const l of UNIVERSAL_LAYERS) if (!cs.promptReconstruction.layers[l.key]) err(`case-study reconstruction missing layer "${l.key}"`);
   if (/\d+\s?%|€|\$|revenue|turnover/i.test(JSON.stringify(cs).replace(/No other company, client, revenue or performance claims are made\./, '')))
     err('case study contains a number or financial claim that is not in the approved material');
-  if (sc.accessibility.status !== 'planned-until-ux-integration') err('accessibility features must stay marked as planned until built');
+  // A feature may be described in the present tense only once it is built (Numbered Prompt 8, Part N).
+  const allBuilt = sc.accessibility.features.every((f) => f.implemented);
+  if ((sc.accessibility.status === 'describes-current-site') !== allBuilt) err('accessibility status must match the features’ implemented flags');
+  for (const f of sc.accessibility.features) if (!f.planned || !f.current) err(`accessibility feature "${f.name}" needs planned and current wording`);
+  if (/2\+2/.test(JSON.stringify(sc.caseStudy))) err('case study must explain the pilot instead of “2+2”');
   overclaims(sc, 'shared').forEach(err);
   return errors;
 }
@@ -723,9 +730,7 @@ ${STATUS_NOTE[sc.privacy.status]}${sections(sc.privacy.sections)}
 
 ${sc.accessibility.intro}
 
-${STATUS_NOTE[sc.accessibility.status]}*${sc.accessibility.plannedNote}*
-
-${sc.accessibility.features.map((f) => `- **${f.name}:** ${f.description}`).join('\n')}
+${STATUS_NOTE[sc.accessibility.status]}${sc.accessibility.features.every((f) => f.implemented) ? '' : `*${sc.accessibility.plannedNote}*\n\n`}${sc.accessibility.features.map((f) => `- **${f.name}:** ${f.implemented ? f.current : `${f.planned} *(planned)*`}`).join('\n')}
 
 ${sc.accessibility.contact}
 

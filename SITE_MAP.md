@@ -110,5 +110,5 @@ The same pattern applies to `crispy-chicken`, `bacon-cheese` and `chilli-cheese`
 
 ## 6. Development-only exceptions (current)
 
-- **Coming-later cards:** the three non-Hamburger cards show "Coming later" while in development. They must not remain that way at launch.
-- **BITE note:** the hero's "See how BITE works" is temporarily plain text ("Final check: BITE — Brief · Information · Taste · Expected result"). It is restored as a link once the BITE chapter (section 8) exists.
+- **Resolved in Prompt 8:** the “Coming later” cards are gone. All four journeys are selectable, and the hero’s “See how BITE works” link opens the BITE chapter.
+- **Temporary visuals:** the burgers are CSS shapes until photographic assets replace them. Each ingredient has a stable element (`#ingredient-{journey}-{ingredientId}`).

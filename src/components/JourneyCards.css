@@ -39,55 +39,33 @@
   color: var(--color-ink);
 }
 
+.journey-card {
+  background: rgb(255 249 239 / 0.6);
+  border: 1.5px solid rgb(43 27 20 / 0.22);
+  transition: transform var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+}
+
+.journey-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-ink);
+}
+
 .journey-card--selected {
   background: var(--color-paper);
   border: 2px solid var(--color-tomato);
   box-shadow: var(--shadow-soft);
-  transition: transform var(--duration-fast) var(--ease-out);
-}
-
-.journey-card--selected:hover {
-  transform: translateY(-2px);
-}
-
-.journey-card--later {
-  background: transparent;
-  border: 1.5px dashed rgb(43 27 20 / 0.3);
-  color: var(--color-ink-soft);
 }
 
 .journey-card__swatch {
   grid-row: 1 / span 2;
+  align-self: center;
   display: grid;
-  gap: 2px;
-  align-content: center;
-  justify-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.3rem;
   border-radius: 50%;
   background: var(--color-cream-deep);
-}
-
-.journey-card__swatch span {
-  width: 1.2rem;
-  height: 0.22rem;
-  border-radius: 2px;
-  background: currentColor;
-  opacity: 0.55;
-}
-
-.journey-card__swatch span:first-child {
-  height: 0.35rem;
-  border-radius: 0.6rem 0.6rem 2px 2px;
-}
-
-.journey-card__swatch--tomato { color: var(--color-tomato); }
-.journey-card__swatch--mustard { color: #a8761a; }
-.journey-card__swatch--ink { color: var(--color-ink); }
-.journey-card__swatch--pickle { color: var(--color-pickle); }
-
-.journey-card--selected .journey-card__swatch span {
-  opacity: 1;
 }
 
 .journey-card__text {
@@ -97,6 +75,7 @@
 }
 
 .journey-card__name {
+  display: block;
   font-family: var(--font-display);
   font-size: var(--text-sm);
   font-weight: 700;
@@ -104,6 +83,7 @@
 }
 
 .journey-card__topic {
+  display: block;
   font-size: var(--text-xs);
   line-height: 1.3;
 }
