@@ -1,4 +1,4 @@
-import { teaserContent } from '../data/content';
+import { takeAwayContent, teaserContent } from '../data/content';
 import { sharedContent } from '../data/sharedContent';
 import { JOURNEYS, JOURNEY_ORDER, LAYER_KEYS, bestForSummary } from '../app/registry';
 import { journeyHash, chapterHash } from '../app/router';
@@ -68,9 +68,37 @@ export default function JourneySelector() {
           })}
         </ul>
 
+        <TakeAwayMenu />
+
         <p className="selector__more">
           New to prompting? <a href={chapterHash('welcome')}>Read the welcome chapter</a> first, or open the{' '}
           <a href={chapterHash('glossary')}>glossary</a>.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/** Download card for the Prompting Menu PDF. BASE_URL keeps the link valid under a GitHub Pages sub-path. */
+function TakeAwayMenu() {
+  const t = takeAwayContent;
+  return (
+    <section className="takeaway" aria-labelledby="takeaway-title">
+      <div className="takeaway__text">
+        <p className="takeaway__eyebrow">{t.eyebrow}</p>
+        <h2 id="takeaway-title" className="takeaway__headline">
+          {t.headline}
+        </h2>
+        <p className="takeaway__description">{t.description}</p>
+      </div>
+      <div className="takeaway__action">
+        <a className="btn btn--primary" href={`${import.meta.env.BASE_URL}${t.file}`} download aria-describedby="takeaway-meta">
+          {t.cta}
+          <span className="visually-hidden">: {t.ctaContext}</span>
+          <Arrow dir="down" />
+        </a>
+        <p id="takeaway-meta" className="takeaway__meta">
+          {t.meta}
         </p>
       </div>
     </section>

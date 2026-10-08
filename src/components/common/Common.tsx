@@ -159,11 +159,11 @@ export function PageTitle({ children, eyebrow, lead }: { children: ReactNode; ey
   );
 }
 
-export function Arrow({ dir = 'right' }: { dir?: 'right' | 'left' }) {
+export function Arrow({ dir = 'right' }: { dir?: 'right' | 'left' | 'down' }) {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
       <path
-        d={dir === 'right' ? 'M3 8h9M8.5 4l4 4-4 4' : 'M13 8H4M7.5 4l-4 4 4 4'}
+        d={dir === 'right' ? 'M3 8h9M8.5 4l4 4-4 4' : dir === 'down' ? 'M8 3v9M4 8.5l4 4 4-4' : 'M13 8H4M7.5 4l-4 4 4 4'}
         fill="none"
         stroke="currentColor"
         strokeWidth="2"

@@ -20,3 +20,15 @@ export const teaserContent = {
   headline: 'Your prompt. Seven useful layers.',
   supporting: 'Scroll to open the burger, understand each ingredient and build your prompt.',
 } as const;
+
+/** Home-page download of the Prompting Menu PDF (public/downloads). */
+export const takeAwayContent = {
+  eyebrow: 'Take-away menu',
+  headline: 'Keep the complete prompting menu',
+  description:
+    'Explore the seven-layer method, 24 practical prompting techniques, examples, Pro Tips and responsible-AI checks in one illustrated reference.',
+  cta: 'Download the PDF',
+  ctaContext: 'Prompt Smash! — The Prompting Menu',
+  meta: 'English · 45 pages · PDF',
+  file: 'downloads/prompt-smash-prompting-menu.pdf',
+} as const;

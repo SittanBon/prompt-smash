@@ -131,3 +131,62 @@
 .selector__more a {
   font-weight: 600;
 }
+
+/* Take-away menu: PDF download card under the journey cards */
+.takeaway {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-lg) var(--space-xl);
+  margin-top: var(--space-xl);
+  padding: var(--space-lg) clamp(var(--space-lg), 1rem + 2vw, var(--space-xl));
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-soft);
+}
+
+.takeaway__eyebrow {
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-tomato-deep);
+}
+
+.takeaway__headline {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.takeaway__description {
+  max-width: 60ch;
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--color-ink-soft);
+}
+
+.takeaway__action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.takeaway__meta {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-ink-soft);
+}
+
+@media (max-width: 47.99rem) {
+  .takeaway {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .takeaway__action {
+    align-items: flex-start;
+  }
+}
