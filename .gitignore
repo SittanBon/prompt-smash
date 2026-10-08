@@ -56,3 +56,6 @@ secrets/
 
 # Local prompt-test inputs (results are summarised in content/tests/)
 qa/content-tests/
+
+# PDF QA renders (local only)
+qa/pdf-prompting-menu/
