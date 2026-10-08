@@ -45,7 +45,7 @@ export const baconCheese: JourneyContentStrict = {
   anchorUseCase: {
     title: 'A cinematic homepage hero image of a premium separated burger',
     scenario:
-      'You are preparing the homepage for Prompt Smash, a fictional website that teaches prompting. The design needs one striking hero image: a premium bacon cheeseburger with its layers separated, floating apart in mid-air. The website will place its own heading and buttons over the image. A person on the team will review every result, and its rights, before anything is published.',
+      'You are preparing the homepage for the Prompt Smash! learning website, which teaches prompting. The design needs one striking hero image: a premium bacon cheeseburger with its layers separated, floating apart in mid-air. The website will place its own heading and buttons over the image. A person on the team will review every result, and its rights, before anything is published.',
     status: 'approved',
   },
 
@@ -84,7 +84,7 @@ export const baconCheese: JourneyContentStrict = {
         question: 'What is this image for, and who will see it?',
         placeholder: 'This image should help…',
         exampleAnswer:
-          'The homepage hero image for Prompt Smash, a fictional website that teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.',
+          'The homepage hero image for the Prompt Smash! learning website, which teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.',
       },
       whyItMatters: {
         simple: 'The same burger can be pictured in many ways. The purpose tells you which way fits.',

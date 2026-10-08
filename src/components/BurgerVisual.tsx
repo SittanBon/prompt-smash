@@ -2,7 +2,8 @@
  * CSS burger, themed per journey. Temporary until photographic ingredients
  * replace it: every ingredient is a stable element
  * (`#ingredient-{journey}-{ingredientId}`, `data-layer`) so an image can be
- * dropped into each slot later without changing the interface.
+ * dropped into each slot later without changing the interface or the motion
+ * system (the home-page tour only moves these slots).
  *
  * The food shapes are decorative. In the builder, the accessible controls are
  * the progress list; clicking a slice is only a mouse shortcut to the same place.
@@ -15,19 +16,25 @@ import './BurgerVisual.css';
 
 interface BurgerVisualProps {
   journey: JourneyId;
-  variant: 'hero' | 'builder' | 'compact' | 'card';
+  /** hero: assembled; tour: the home-page scroll tour (separates, with side labels); builder/compact: layer builder; card: small assembled. */
+  variant: 'hero' | 'tour' | 'builder' | 'compact' | 'card';
   activeLayer?: LayerKey;
   states?: Partial<Record<LayerKey, LayerState>>;
   onSelectLayer?: (key: LayerKey) => void;
+  className?: string;
 }
 
-export default function BurgerVisual({ journey, variant, activeLayer, states, onSelectLayer }: BurgerVisualProps) {
+const ID_SUFFIX: Partial<Record<BurgerVisualProps['variant'], string>> = { hero: '-hero', tour: '-tour', builder: '', compact: '' };
+
+export default function BurgerVisual({ journey, variant, activeLayer, states, onSelectLayer, className = '' }: BurgerVisualProps) {
   const j = JOURNEYS[journey];
-  const labelled = variant === 'hero';
+  const labelled = variant === 'hero' || variant === 'tour';
+  const suffix = ID_SUFFIX[variant];
   return (
     <div
-      className={`burger burger--${journey} burger--${variant}`}
+      className={`burger burger--${journey} burger--${variant} ${className}`}
       data-journey={journey}
+      data-focus={activeLayer ? true : undefined}
       {...(labelled
         ? { role: 'img', 'aria-label': `${j.burgerName}: seven layers, from the top bun (Goal) down to the wrapper (Rules and Boundaries).` }
         : { 'aria-hidden': true })}
@@ -37,7 +44,7 @@ export default function BurgerVisual({ journey, variant, activeLayer, states, on
         {UNIVERSAL_LAYERS.map((l) => (
           <div
             key={l.key}
-            id={variant === 'card' ? undefined : `ingredient-${journey}-${l.ingredientId}${variant === 'hero' ? '-hero' : ''}`}
+            id={suffix === undefined ? undefined : `ingredient-${journey}-${l.ingredientId}${suffix}`}
             className={`burger__ing burger__ing--${l.ingredientId}`}
             data-layer={l.key}
             data-ingredient={l.ingredientId}
@@ -46,6 +53,11 @@ export default function BurgerVisual({ journey, variant, activeLayer, states, on
             onClick={onSelectLayer ? () => onSelectLayer(l.key) : undefined}
           >
             <span className="burger__detail" />
+            {variant === 'tour' && (
+              <span className="burger__label">
+                <span className="burger__label-num">{l.order}</span> {l.label}
+              </span>
+            )}
           </div>
         ))}
       </div>

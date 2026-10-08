@@ -102,7 +102,8 @@ export interface AccessibilityPage {
    * describes an unfinished feature as working.
    */
   features: { name: string; planned: string; current: string; implemented: boolean }[];
-  contact: string;
+  /** Optional: only set once a real, published contact route exists. */
+  contact?: string;
 }
 
 export interface DisclaimerPage {

@@ -389,7 +389,7 @@ Rules and Boundaries: Use only the hours given. If a day is missing, write [CHEC
   /* ── 6. ABOUT THE METHOD ────────────────────────────────────────── */
   about: {
     title: 'About the method',
-    intro: 'Why Prompt Smash teaches prompting with a burger, and what it can and cannot do for you.',
+    intro: 'Why Prompt Smash! teaches prompting with a burger, and what it can and cannot do for you.',
     status: 'describes-current-site',
     sections: [
       {
@@ -498,7 +498,7 @@ Rules and Boundaries: Use only the hours given. If a day is missing, write [CHEC
   /* ── 8. ACCESSIBILITY HELP ──────────────────────────────────────── */
   accessibility: {
     title: 'Accessibility help',
-    intro: 'Prompt Smash is designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.',
+    intro: 'Prompt Smash! is designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.',
     status: 'describes-current-site',
     plannedNote:
       'These features are planned. They are being built with the interactive journeys, and this page will be updated once each one has been built and tested.',
@@ -540,14 +540,13 @@ Rules and Boundaries: Use only the hours given. If a day is missing, write [CHEC
         implemented: true,
       },
     ],
-    contact: 'If something does not work for you, please tell us through the project’s contact channel once it is published.',
   },
 
   /* ── 9. DISCLAIMER ──────────────────────────────────────────────── */
   disclaimer: {
     title: 'Disclaimer',
     points: [
-      'Prompt Smash is an educational resource.',
+      'Prompt Smash! is an educational resource.',
       'It is not legal advice.',
       'It is not a security certification or a compliance assessment.',
       'It does not guarantee that any AI model’s output will be correct, fair or safe.',

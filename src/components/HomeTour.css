@@ -1,0 +1,475 @@
+/* Home-page Hamburger tour. --sep (0 → 1) and --intro (1 → 0) are written by
+   HomeTour.tsx from the scroll position; everything else is plain CSS. */
+
+.tour {
+  --sep: 0;
+  --intro: 1;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* ── In-flow layer: the real headline and the intro ─────────────── */
+.tour__flow {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--hero-gap);
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--hero-pad-top) var(--gutter) clamp(1.5rem, 1rem + 2svh, 3rem);
+}
+
+.tour__placeholder {
+  visibility: hidden;
+}
+
+.tour__flow .hero__footer {
+  opacity: var(--intro);
+}
+
+.tour[data-intro='hidden'] .tour__flow .hero__footer {
+  visibility: hidden;
+}
+
+/* ── Pinned layer: burger, panel and progress ───────────────────── */
+.tour__pin {
+  grid-area: 1 / 1;
+  align-self: start;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.tour__stagebox {
+  position: absolute;
+  inset: 0;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--hero-pad-top) var(--gutter) 0;
+}
+
+/* The burger travels from the hero position into the slot and grows a little */
+.tour__burger {
+  translate: calc(var(--sep) * var(--dx, 0px)) calc(var(--sep) * var(--dy, 0px));
+  scale: calc(1 + var(--sep) * (var(--s, 1) - 1));
+}
+
+.tour__burger .hero__badge {
+  opacity: clamp(0, 1 - var(--sep) * 3, 1);
+}
+
+.burger--tour .burger__ing {
+  translate: 0 calc(var(--sep, 0) * var(--d, 0px));
+}
+
+/* The wrapper unfolds into a flat seventh layer */
+.burger--tour .burger__ing--wrapper {
+  --sx: calc(1 + var(--sep, 0) * 0.04);
+  --sy: calc(1 - var(--sep, 0) * 0.3);
+  transform: scaleX(var(--sx)) scaleY(var(--sy));
+}
+
+/* Labels keep their reading size whatever the burger's scale */
+.burger--tour .burger__label {
+  scale: calc(1 / (1 + var(--sep, 0) * (var(--s, 1) - 1)));
+  transform-origin: 0 50%;
+}
+
+.tour[data-labels='off'] .burger__label {
+  display: none;
+}
+
+/* Keep the wrapper's side label undistorted */
+.burger--tour .burger__ing--wrapper .burger__label {
+  transform: scale(calc(1 / var(--sx)), calc(1 / var(--sy)));
+  transform-origin: 0 50%;
+}
+
+.burger--tour .burger__shadow {
+  translate: 0 calc(var(--sep, 0) * var(--shadow-d, 0px));
+  opacity: calc(1 - var(--sep, 0) * 0.35);
+}
+
+.tour__layout {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  max-width: var(--content-max);
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 25rem) auto;
+  grid-template-rows: minmax(0, 1fr) auto auto minmax(0, 1fr);
+  grid-template-areas: 'slot . dots' 'slot side dots' 'slot skip dots' 'slot . dots';
+  align-items: center;
+  column-gap: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+  margin-inline: auto;
+  padding: clamp(1rem, 4svh, 3rem) var(--gutter);
+}
+
+.tour__slot {
+  grid-area: slot;
+  align-self: stretch;
+  margin-left: clamp(0rem, 3vw - 1rem, 4rem);
+}
+
+.tour__side {
+  grid-area: side;
+  display: grid;
+  gap: 0.5rem;
+  justify-items: start;
+}
+
+.tour-dots {
+  grid-area: dots;
+  position: relative;
+  z-index: 2; /* the name tooltip may overlap the panel */
+}
+
+.tour__skip {
+  grid-area: skip;
+  justify-self: start;
+}
+
+/* Panel and dots arrive as the burger opens */
+.tour .tour__side,
+.tour .tour-dots,
+.tour .tour__skip {
+  opacity: clamp(0, (var(--sep) - 0.55) * 2.5, 1);
+  translate: 0 calc((1 - var(--sep)) * 1.5rem);
+}
+
+.tour[data-phase='tour'] .tour__side,
+.tour[data-phase='tour'] .tour-dots,
+.tour[data-phase='tour'] .tour__skip {
+  pointer-events: auto;
+}
+
+/* ── Content panel ───────────────────────────────────────────────── */
+.tour-panel {
+  display: grid;
+  width: 100%;
+}
+
+.tour-panel__card {
+  grid-area: 1 / 1;
+  align-self: start;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.6rem;
+  padding: clamp(1.25rem, 0.9rem + 1vw, 2rem);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-soft);
+  visibility: hidden;
+  opacity: 0;
+  translate: 0 0.75rem;
+  transition: opacity 280ms var(--ease-out), translate 280ms var(--ease-out), visibility 0s linear 280ms;
+}
+
+.tour-panel__card[data-on] {
+  visibility: visible;
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0s;
+}
+
+.tour-panel__eyebrow {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-tomato-deep);
+}
+
+.tour-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.75rem;
+}
+
+.tour-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.tour-panel__metaphor,
+.tour-panel__pro {
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+}
+
+.tour-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tour-panel__card > .btn,
+.tour-panel__actions {
+  margin-top: 0.25rem;
+}
+
+.tour__skip {
+  min-height: var(--tap-min);
+  padding: 0 0.25rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: none;
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.tour__skip:hover {
+  color: var(--color-ink);
+}
+
+/* ── Seven-step progress (after ref5.jpg) ────────────────────────── */
+.tour-dots__list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tour-dots__btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* Upcoming: hollow ring. Passed: filled. Current: a long tomato pill. */
+.tour-dots__mark {
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-pill);
+  font-size: 0;
+  line-height: 1;
+  transition: height 280ms var(--ease-out), background-color 280ms var(--ease-out), border-color 280ms var(--ease-out);
+}
+
+.tour-dots__mark svg {
+  display: none;
+}
+
+.tour-dots__btn[data-state='passed'] .tour-dots__mark {
+  background: var(--color-ink);
+}
+
+.tour-dots__btn[data-state='current'] .tour-dots__mark {
+  height: 30px;
+  border-color: var(--color-tomato);
+  background: var(--color-tomato);
+}
+
+/* The layer name appears on hover and keyboard focus */
+.tour-dots__label {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  translate: 0 -50%;
+  padding: 0.2em 0.75em;
+  border-radius: var(--radius-pill);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-soft);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-out);
+}
+
+.tour-dots__btn:hover .tour-dots__label,
+.tour-dots__btn:focus-visible .tour-dots__label {
+  opacity: 1;
+}
+
+/* ── Intro below the hero: compact cards only where they fit ─────── */
+@media (max-width: 74.99rem) {
+  .tour .hero__journeys {
+    display: none;
+  }
+
+  .tour .hero__footer {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'cue' 'intro';
+    /* While it scrolls over the pinned burger, the text keeps a calm background */
+    background: linear-gradient(180deg, transparent, var(--color-cream) 2.75rem);
+  }
+}
+
+/* ── Small and portrait screens: burger on top, numbered steps, then the panel ── */
+@media (max-width: 47.99rem), (max-width: 63.99rem) and (orientation: portrait) {
+  .tour .hero__footer {
+    grid-template-areas: 'intro' 'cue';
+  }
+
+  .tour__layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto auto;
+    grid-template-areas: 'slot' 'dots' 'side';
+    align-items: stretch;
+    row-gap: 0.5rem;
+    padding: 3.25rem max(6px, calc(var(--gutter) - 0.5rem)) max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .tour__side {
+    justify-items: stretch;
+  }
+
+  .tour__skip {
+    position: absolute;
+    top: 0.25rem;
+    right: max(6px, calc(var(--gutter) - 0.5rem));
+  }
+
+  .tour-dots__list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(var(--tap-min), 1fr);
+  }
+
+  .tour-dots__btn {
+    width: 100%;
+    height: 48px;
+    border-radius: 0.75rem;
+  }
+
+  .tour-dots__mark {
+    width: 32px;
+    height: 32px;
+    background: var(--color-paper);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .tour-dots__mark svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  .tour-dots__btn[data-state='passed'] .tour-dots__mark {
+    color: var(--color-paper);
+  }
+
+  .tour-dots__btn[data-state='current'] .tour-dots__mark {
+    width: 36px;
+    height: 36px;
+    color: var(--color-on-tomato);
+    box-shadow: 0 0 0 3px var(--color-cream), 0 0 0 5px var(--color-tomato);
+  }
+
+  .tour-dots__label {
+    display: none;
+  }
+
+  .tour-panel__card {
+    gap: 0.4rem;
+    padding: 1rem 1.1rem 1.1rem;
+  }
+
+  .tour-panel__title {
+    font-size: 1.375rem;
+  }
+
+  .burger__label {
+    display: none;
+  }
+}
+
+/* Short screens: keep the essentials, drop the metaphor line */
+@media (max-height: 45rem) and (max-width: 47.99rem) {
+  .tour-panel__metaphor {
+    display: none;
+  }
+}
+
+/* ================================================================== */
+/* Reduced motion: static explorer                                     */
+/* ================================================================== */
+
+.explorer {
+  padding: var(--space-2xl) var(--gutter);
+}
+
+.explorer__inner {
+  display: grid;
+  gap: var(--space-xl);
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.explorer__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+.explorer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 27rem) auto;
+  grid-template-areas: 'burger side dots';
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.explorer__burger {
+  grid-area: burger;
+  justify-self: center;
+  width: min(100%, 24rem);
+  margin-right: min(11rem, 18vw); /* room for the side label */
+}
+
+.burger--static .burger__stack {
+  gap: 0.9em;
+}
+
+.burger--static .burger__ing {
+  margin-top: 0;
+}
+
+.burger--static .burger__ing--wrapper {
+  --unfold: 1;
+  aspect-ratio: 6.5 / 1;
+}
+
+@media (max-width: 47.99rem) {
+  .explorer__grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'burger' 'dots' 'side';
+    gap: var(--space-md);
+  }
+
+  .explorer__burger {
+    width: min(100%, 16rem);
+    margin-right: 0;
+  }
+}

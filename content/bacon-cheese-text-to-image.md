@@ -7,7 +7,7 @@
 
 **Anchor use case (approved):** A cinematic homepage hero image of a premium separated burger
 
-You are preparing the homepage for Prompt Smash, a fictional website that teaches prompting. The design needs one striking hero image: a premium bacon cheeseburger with its layers separated, floating apart in mid-air. The website will place its own heading and buttons over the image. A person on the team will review every result, and its rights, before anything is published.
+You are preparing the homepage for the Prompt Smash! learning website, which teaches prompting. The design needs one striking hero image: a premium bacon cheeseburger with its layers separated, floating apart in mid-air. The website will place its own heading and buttons over the image. A person on the team will review every result, and its rights, before anything is published.
 
 ## Best for
 - Website visuals
@@ -73,7 +73,7 @@ The first prompt leaves the tool to choose the burger, the angle, the light, the
 - **Example answer (anchor case):**
 
 ```text
-The homepage hero image for Prompt Smash, a fictional website that teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.
+The homepage hero image for the Prompt Smash! learning website, which teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.
 ```
 
 #### Why it matters
@@ -577,7 +577,7 @@ A photorealistic studio photograph of a premium bacon cheeseburger with its laye
 
 ```text
 Goal:
-The homepage hero image for Prompt Smash, a fictional website that teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.
+The homepage hero image for the Prompt Smash! learning website, which teaches prompting to beginners and professionals. At a glance, it should show that a good prompt is built from separate layers, and make first-time visitors want to scroll and start building.
 
 Task:
 Generate a new, original photograph-style image of a premium bacon cheeseburger with its layers separated and floating apart vertically. This is a new image, not an edit of an existing one.

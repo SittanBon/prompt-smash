@@ -347,7 +347,7 @@ Rules and Boundaries:
 
 ## 6. About the method
 
-Why Prompt Smash teaches prompting with a burger, and what it can and cannot do for you.
+Why Prompt Smash! teaches prompting with a burger, and what it can and cannot do for you.
 
 ### Why a burger?
 A burger is easy to picture: separate layers that work together. A good prompt is the same.
@@ -419,7 +419,7 @@ Do not enter personal or confidential information unless your prompt really need
 
 ## 8. Accessibility help
 
-Prompt Smash is designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.
+Prompt Smash! is designed so everyone can use it, with a keyboard, a screen reader, touch or a mouse.
 
 - **Keyboard navigation:** Every control is reachable with the Tab key and usable with Enter or Space, with a clearly visible focus outline. A skip link leads straight to the main content.
 - **Progress controls:** The seven-step progress indicator is an ordered list that screen readers announce with each step’s number, name and state. Every step can be selected and revisited.
@@ -428,13 +428,11 @@ Prompt Smash is designed so everyone can use it, with a keyboard, a screen reade
 - **Mobile bottom sheet:** On small screens, your live prompt opens in a panel from the bottom of the screen, which you can open and close with a clearly labelled button.
 - **Not by colour alone:** States such as Required, Needs attention and Completed always use words or icons as well as colour.
 
-If something does not work for you, please tell us through the project’s contact channel once it is published.
-
 ---
 
 ## 9. Disclaimer
 
-- Prompt Smash is an educational resource.
+- Prompt Smash! is an educational resource.
 - It is not legal advice.
 - It is not a security certification or a compliance assessment.
 - It does not guarantee that any AI model’s output will be correct, fair or safe.

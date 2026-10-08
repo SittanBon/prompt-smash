@@ -732,9 +732,7 @@ ${sc.accessibility.intro}
 
 ${STATUS_NOTE[sc.accessibility.status]}${sc.accessibility.features.every((f) => f.implemented) ? '' : `*${sc.accessibility.plannedNote}*\n\n`}${sc.accessibility.features.map((f) => `- **${f.name}:** ${f.implemented ? f.current : `${f.planned} *(planned)*`}`).join('\n')}
 
-${sc.accessibility.contact}
-
----
+${sc.accessibility.contact ? `${sc.accessibility.contact}\n\n` : ''}---
 
 ## 9. ${sc.disclaimer.title}
 

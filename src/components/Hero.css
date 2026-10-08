@@ -1,4 +1,5 @@
-.hero {
+.hero,
+.tour {
   /* The display size drives the whole composition so the burger/headline
      relationship from ref3.jpg holds at every viewport. */
   --display-size: var(--text-display);
@@ -6,15 +7,19 @@
   --burger-top: calc(var(--display-size) * 0.12);
   --burger-overhang: calc(var(--display-size) * 0.38);
   --teaser-peek: clamp(3rem, 8svh, 6rem);
+  --hero-pad-top: clamp(0.75rem, 0.25rem + 1.5svh, 2rem);
+  --hero-gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
 
+.hero {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  gap: var(--hero-gap);
   min-height: calc(100svh - 5.25rem - var(--teaser-peek));
   max-width: var(--content-max);
   margin-inline: auto;
-  padding: clamp(0.75rem, 0.25rem + 1.5svh, 2rem) var(--gutter) clamp(1.5rem, 1rem + 2svh, 3rem);
+  padding: var(--hero-pad-top) var(--gutter) clamp(1.5rem, 1rem + 2svh, 3rem);
 }
 
 /* --- Stage: headline and burger share one grid cell --- */
@@ -61,6 +66,10 @@
 
 .hero__display:focus {
   outline: none;
+}
+
+.hero__display--ghost {
+  visibility: hidden;
 }
 
 .hero__badge {
@@ -177,7 +186,8 @@
 
 /* --- Laptop / tablet: burger no longer overhangs into a 3-column footer --- */
 @media (max-width: 74.99rem) {
-  .hero {
+  .hero,
+  .tour {
     --burger-overhang: 0px;
   }
 
@@ -200,12 +210,16 @@
 /* --- Mobile: re-composed, not scaled down. Line one stays fully readable,
        the burger sits lower and overlaps only the second line. --- */
 @media (max-width: 47.99rem) {
-  .hero {
+  .hero,
+  .tour {
     --display-size: clamp(3.25rem, 20.5vw, 6rem);
     --burger-w: min(68vw, 20rem);
     /* Bun crown tucks under the lower half of "SMASH!" so both words stay readable */
     --burger-top: calc(var(--display-size) * 1.42);
     --teaser-peek: 2.5rem;
+  }
+
+  .hero {
     min-height: 0;
   }
 

@@ -7,7 +7,7 @@ import { JOURNEYS } from '../../app/registry';
 import { chapterHash, journeyHash, navigate } from '../../app/router';
 import { assembled, layerState, useApp } from '../../app/state';
 import { fill } from '../../app/promptFiles';
-import { ConfirmDialog, ModeText, PageTitle, StatusPill } from '../common/Common';
+import { ConfirmDialog, Disclosure, ModeText, PageTitle, StatusPill } from '../common/Common';
 import { BITE_STATUS_LABEL, useBiteStatus } from './BiteReview';
 import { safetyStatus } from './ResponsibleAIReview';
 import { PromptActions, PromptPreview, SaveControls } from './LivePrompt';
@@ -162,10 +162,25 @@ export default function CompletionSummary({ journey }: { journey: JourneyId }) {
         <ModeText text={cs.takeaway} className="finish__takeaway" />
       </section>
 
+      <section className="card" aria-labelledby="fin-transfer">
+        <h2 id="fin-transfer" className="card__title">
+          {j.workedExample.variation.title}
+        </h2>
+        <p>{j.workedExample.variation.scenario}</p>
+        <Disclosure summary="See all seven layers for this task">
+          <dl className="layer-notes layer-notes--pre">
+            {UNIVERSAL_LAYERS.map((l) => (
+              <div key={l.key}>
+                <dt>{l.label}</dt>
+                <dd>{j.workedExample.variation.answers[l.key]}</dd>
+              </div>
+            ))}
+          </dl>
+        </Disclosure>
+      </section>
+
+      {/* Forward learning comes first; starting over is the last, quieter action. */}
       <div className="finish__actions">
-        <button type="button" className="btn btn--ghost" onClick={() => setConfirm(true)}>
-          {mc.buildAnotherPrompt}
-        </button>
         {next ? (
           <a className="btn btn--primary" href={journeyHash(next.id)}>
             {fill(mc.continueToNextBurger, { burger: next.burgerName })}
@@ -180,6 +195,9 @@ export default function CompletionSummary({ journey }: { journey: JourneyId }) {
             </a>
           </>
         )}
+        <button type="button" className="btn btn--ghost" onClick={() => setConfirm(true)}>
+          {mc.buildAnotherPrompt}
+        </button>
       </div>
       <p className="finish__pitch">{cs.nextJourneyPitch}</p>
 

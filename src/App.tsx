@@ -6,7 +6,7 @@ import { AppProvider, useApp } from './app/state';
 import { JOURNEYS, stepsFor } from './app/registry';
 import { journeyHash, routeKey, useRoute, type Route } from './app/router';
 import SiteNav, { HANDBOOK_LINKS } from './components/SiteNav';
-import Hero from './components/Hero';
+import Home from './components/HomeTour';
 import JourneySelector from './components/JourneySelector';
 import JourneyPage from './components/journey/JourneyPage';
 import SharedHandbook from './components/handbook/SharedHandbook';
@@ -83,7 +83,7 @@ function Shell() {
       <main id="main" tabIndex={-1} className={`main main--${route.name}`}>
         {route.name === 'home' && (
           <>
-            <Hero />
+            <Home />
             <JourneySelector />
           </>
         )}

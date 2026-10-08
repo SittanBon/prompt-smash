@@ -300,7 +300,7 @@ function Accessibility() {
           </div>
         ))}
       </dl>
-      <p className="callout">{a.contact}</p>
+      {a.contact && <p className="callout">{a.contact}</p>}
     </>
   );
 }
