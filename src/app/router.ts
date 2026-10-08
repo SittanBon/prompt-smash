@@ -40,7 +40,9 @@ export type Route =
 export function parseHash(hash: string): Route {
   // In-page anchors (no leading "#/") belong to the home page.
   if (!hash.startsWith('#/')) return { name: 'home' };
-  const parts = hash.slice(2).split('/').filter(Boolean).map(decodeURIComponent);
+  // A query inside the hash (for example "?mode=pro") is not part of the route.
+  const path = hash.slice(2).split('?')[0];
+  const parts = path.split('/').filter(Boolean).map(decodeURIComponent);
   if (parts.length === 0) return { name: 'home' };
   const [first, second, third, ...rest] = parts;
 

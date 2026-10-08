@@ -25,7 +25,7 @@ function pageTitle(r: Route): string {
     return `${step} — ${j.burgerName} · ${site}`;
   }
   if (r.name === 'chapter') return `${HANDBOOK_LINKS.find((l) => l.chapter === r.chapter)?.label ?? ''} · ${site}`;
-  if (r.name === 'home') return site;
+  if (r.name === 'home') return `${site} — Build Better AI Prompts`;
   return `Link not found · ${site}`;
 }
 

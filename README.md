@@ -1,11 +1,57 @@
 # Prompt Smash!
 
-An interactive, cinematic prompting handbook that teaches how to build effective AI prompts through a hamburger metaphor. It has four journeys: **Hamburger — Prompt Design**, **Crispy Chicken Burger — Prompt Engineering**, **Bacon Cheese Burger — Text-to-Image** and **Chilli Cheese Burger — Text-to-Code**. All written content exists, and all four journeys are interactive. They share one engine, and hash routes such as `#/hamburger/layer/goal` work on GitHub Pages. Work is saved only in the browser.
+**Prompt Smash! — Build Better AI Prompts** is an interactive prompting handbook. It teaches how to write effective AI prompts with a hamburger metaphor: every prompt is a burger built from seven layers, in a fixed order.
+
+## The four learning journeys
+
+| Burger | Journey | Focus |
+|---|---|---|
+| Hamburger | Prompt Design | The seven-layer method itself, built one layer at a time |
+| Crispy Chicken Burger | Prompt Engineering | Techniques, testing and iteration in the Technique Lab |
+| Bacon Cheese Burger | Text-to-Image | Image prompts, built with the same seven layers |
+| Chilli Cheese Burger | Text-to-Code | Code prompts, with a responsible-AI review before you finish |
+
+All four journeys share one engine. Each one has an overview, a seven-layer builder with a live prompt, techniques, exercises, a review and a finish screen. Shared handbook chapters cover BITE, responsible AI, a DACH case study, a glossary, privacy and accessibility.
+
+## The seven-layer burger method
+
+1. Top bun — Goal
+2. Patty — Task
+3. Cheese — Context and Input
+4. Toppings — Requirements and Details
+5. Sauce — Style and Quality
+6. Bottom bun — Output Format
+7. Wrapper — Rules and Boundaries
+
+## Simple and Pro modes
+
+**Simple** mode explains each idea in everyday words. **Pro** mode keeps that text and adds professional terms, trade-offs and workplace advice. You can switch at any time without losing your answers.
+
+## BITE and the responsible-AI review
+
+**BITE** is the final check of a written prompt: **B**rief (Goal and Task), **I**nformation (Context and Requirements), **T**aste (Style and Quality) and **E**xpected result (Format and Boundaries). BITE does not mean a prompt is correct or safe.
+
+The **responsible-AI review** follows BITE and cannot be switched off. It has five checks: Risk, Injection, Hallucination, Bias and Data Protection. Every check starts as "Not yet reviewed", and nothing is pre-marked as safe.
+
+## Privacy
+
+- Everything runs in the browser. There is no server-side code, no account and no analytics.
+- Your answers are saved only in this browser's local storage, under one key (`prompt-smash:v1:work`), and you can clear them from the site.
+- Your prompt text is never sent to a server and never placed in the URL. Routes such as `#/hamburger/layer/goal` carry only navigation.
+- Copy and download (`.txt` and `.md`) happen entirely in the browser.
+
+## Accessibility
+
+- Every control works with a keyboard and has a visible focus outline. A skip link leads to the main content.
+- Form controls are labelled, and the seven-step progress indicator is announced to screen readers.
+- States never rely on colour alone.
+- Layouts adapt down to 320 px wide. On small screens, the live prompt opens in a labelled bottom sheet.
+- When the device asks for reduced motion, the scroll animation is replaced by a static layout.
 
 ## Stack
 
 - Vite + React + TypeScript, with plain CSS (design tokens in `src/styles/tokens.css`)
-- No server-side code. `base: './'` keeps asset paths portable for a future GitHub Pages deployment.
+- No server-side code. Hash-based routing, so every page can be refreshed or shared on GitHub Pages.
 
 ## Scripts
 
@@ -19,7 +65,7 @@ npm run content:render  # regenerate content/*.md from the TypeScript content
 npm run content:check   # check the content rules and that content/*.md is up to date
 ```
 
-**Node.js:** Node 24 is the recommended version for development and for the future CI workflow (`.nvmrc`). Node 22.18 is the minimum supported version (`engines` in `package.json`), because the content scripts use Node's built-in TypeScript type stripping.
+**Node.js:** Node 24 is the recommended version for development and is used by the deployment workflow (`.nvmrc`). Node 22.18 is the minimum supported version (`engines` in `package.json`), because the content scripts use Node's built-in TypeScript type stripping.
 
 ## Project structure
 
@@ -37,16 +83,6 @@ npm run content:check   # check the content rules and that content/*.md is up to
 | `qa/tools/` | Screenshot and comparison helpers (headless Chrome) |
 | `qa/screenshots/`, `qa/comparisons/` | QA captures (local only, not committed) |
 | `backups/` | Timestamped restore points (local only, not committed) |
-
-## The seven Hamburger layers (fixed order)
-
-1. Top bun — Goal
-2. Patty — Task
-3. Cheese — Context and Input
-4. Toppings — Requirements and Details
-5. Sauce — Style and Quality
-6. Bottom bun — Output Format
-7. Wrapper — Rules and Boundaries
 
 ## QA screenshots
 
@@ -78,3 +114,25 @@ All text uses **Jost** (SIL Open Font License 1.1). The site bundles it through 
 | `src/data/fixtures/` | Fictional datasets used by journeys and tests (for example the customer-feedback sample) |
 | `scripts/build-test-prompts.mjs` | Builds the illustrative test prompts from the real content and assembler into `qa/content-tests/` (local only) |
 | `ref/REFERENCE_MANIFEST.md` | Visual reference hierarchy. The reference images stay local and are not committed. |
+
+## Deployment (GitHub Pages)
+
+The site is deployed by GitHub Actions (`.github/workflows/deploy-pages.yml`) on every push to `main`. The workflow runs on Node 24 and does the following:
+
+1. Installs dependencies with `npm ci`
+2. Runs `npm run content:check` and `npm run typecheck`
+3. Builds with `npm run build`
+4. Uploads `dist/` as the Pages artifact and deploys it
+
+Only one deployment runs at a time. In the repository settings, **Pages → Source** must be set to **GitHub Actions**.
+
+**Base path:** `vite.config.ts` reads the base path from the real repository. In CI it uses `actions/configure-pages`, which gives `/prompt-smash/` for a project site and `/` for a `USERNAME.github.io` repository. Local builds use a relative base (`./`), so `dist/` works from any sub-path. To test a local build under the Pages sub-path:
+
+```bash
+PAGES_BASE_PATH=/prompt-smash npm run build
+```
+
+## Current limitations and next steps
+
+- In this release, the burgers are CSS illustrations, not photographs.
+- After the deadline, the plan is higher-fidelity burger and ingredient visuals. These will be optimised assets for each of the seven layers and the four burgers, art-directed to match the current palette and focus states, with the CSS illustrations kept as a fallback.
