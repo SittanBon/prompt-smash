@@ -648,7 +648,7 @@ Rules and Boundaries:
 ```
 
 ### 6. Illustrative output excerpt
-*Example only: an excerpt from one illustrative run of the final prompt above. Real outputs vary, and every claim still needs checking against the brief.*
+*Example only: an excerpt from one illustrative run of the final seven-layer prompt, built from this journey’s example answers. Real outputs vary, and every claim still needs checking against the brief.*
 
 | Day | Channel | Content idea | Draft text | Image description |
 |---|---|---|---|---|
@@ -990,7 +990,7 @@ Expected result checks that the AI knows the shape of the answer and the lines i
 
 ## Responsible-AI review
 
-*Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then copy or download your prompt.*
+*Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then practise if you like, and copy or download your prompt at the Finish step.*
 
 *Reviewed means you considered the issue. It does not guarantee that the prompt or its result is safe.*
 

@@ -16,8 +16,8 @@ A prompt is the instruction or request you give to an AI. It can be one line or 
 
 *Pro adds:* A prompt can include instructions, background material, examples and limits. Many AI tools also add their own hidden instructions, so your prompt is one part of what the model receives.
 
-### Prompt versus output
-The prompt is what you give the AI. The output is what the AI gives back: text, an image or code.
+### Instruction, input and output
+The prompt is what you give the AI. It holds your instructions, which say what to do, and often some input: the material to work on. The output is what the AI gives back: text, an image or code.
 
 *Pro adds:* You control the prompt. You do not control the output. That is why every journey ends with checks and human review.
 
@@ -32,7 +32,7 @@ A good prompt gives the AI what it needs, and nothing it does not. Every detail 
 *Pro adds:* Unneeded detail can bury the important parts or pull the output off course. Add a detail when leaving it out would make the AI guess.
 
 ### How the seven-layer burger works
-You build a burger, and each ingredient adds one part of your prompt: Goal, Task, Context and Input, Requirements and Details, Style and Quality, Output Format, and Rules and Boundaries. The finished burger is your complete prompt.
+You build a burger, and each ingredient adds one part of your prompt: Goal, Task, Context and Input, Requirements and Details, Style and Quality, Output Format, and Rules and Boundaries. The finished burger is your complete prompt. Goal and Task are Required. Style and Quality is Optional. The other four are Recommended: leave one out only when your task does not need it.
 
 *Pro adds:* The seven layers keep the same meaning in every burger, so what you learn in one journey transfers to the others. The order you read the burger in is not always the best order for the AI; each journey explains when that matters.
 

@@ -8,6 +8,9 @@ import './SiteNav.css';
 
 export type { LearningMode };
 
+/** Approved primary logo (owner-supplied, used unaltered). BASE_URL keeps the path valid under a GitHub Pages sub-path. */
+const LOGO_SRC = `${import.meta.env.BASE_URL}assets/brand/prompt-smash-logo-primary.png`;
+
 const modes: { id: LearningMode; label: string }[] = [
   { id: 'simple', label: 'Simple' },
   { id: 'pro', label: 'Pro' },
@@ -117,13 +120,12 @@ export default function SiteNav({ journey, chapter }: { journey: JourneyId; chap
   return (
     <header className="site-nav">
       <div className="site-nav__inner">
-        <a className="site-nav__brand" href="#/" aria-label="Prompt Smash! — home">
-          <span className="site-nav__mark" aria-hidden="true">
-            <span />
-            <span />
-            <span />
+        {/* The image alone names the link, so the brand is announced once. */}
+        <a className="site-nav__brand" href="#/">
+          <span className="site-nav__logo">
+            <img src={LOGO_SRC} alt="Prompt Smash!" width={1774} height={887} decoding="async" />
           </span>
-          <span className="site-nav__wordmark">Prompt Smash!</span>
+          <span className="visually-hidden">, home</span>
         </a>
 
         <div className="site-nav__middle">

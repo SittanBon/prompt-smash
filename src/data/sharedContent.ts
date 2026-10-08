@@ -29,9 +29,10 @@ export const sharedContent: SharedContent = {
         },
       },
       {
-        heading: 'Prompt versus output',
+        heading: 'Instruction, input and output',
         body: {
-          simple: 'The prompt is what you give the AI. The output is what the AI gives back: text, an image or code.',
+          simple:
+            'The prompt is what you give the AI. It holds your instructions, which say what to do, and often some input: the material to work on. The output is what the AI gives back: text, an image or code.',
           proAddition:
             'You control the prompt. You do not control the output. That is why every journey ends with checks and human review.',
         },
@@ -56,7 +57,7 @@ export const sharedContent: SharedContent = {
         heading: 'How the seven-layer burger works',
         body: {
           simple:
-            'You build a burger, and each ingredient adds one part of your prompt: Goal, Task, Context and Input, Requirements and Details, Style and Quality, Output Format, and Rules and Boundaries. The finished burger is your complete prompt.',
+            'You build a burger, and each ingredient adds one part of your prompt: Goal, Task, Context and Input, Requirements and Details, Style and Quality, Output Format, and Rules and Boundaries. The finished burger is your complete prompt. Goal and Task are Required. Style and Quality is Optional. The other four are Recommended: leave one out only when your task does not need it.',
           proAddition:
             'The seven layers keep the same meaning in every burger, so what you learn in one journey transfers to the others. The order you read the burger in is not always the best order for the AI; each journey explains when that matters.',
         },

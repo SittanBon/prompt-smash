@@ -554,7 +554,7 @@ ${BRIEF}`,
 **Open questions** (excerpt)
 - [CHECK: the loyalty offer’s start and end dates, and whether it applies in store, online or both.]
 - [CHECK: whether mug painting needs booking, and whether places are limited.]`,
-      illustrativeLabel: 'Example only: an excerpt from one illustrative run of the final prompt above. Real outputs vary, and every claim still needs checking against the brief.',
+      illustrativeLabel: 'Example only: an excerpt from one illustrative run of the final seven-layer prompt, built from this journey’s example answers. Real outputs vary, and every claim still needs checking against the brief.',
     },
     limitationsAndReview: [
       'Check every claim, price, offer detail and date against the approved brief before anything is used.',

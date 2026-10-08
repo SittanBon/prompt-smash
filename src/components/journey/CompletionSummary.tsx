@@ -4,7 +4,7 @@ import { BITE, BITE_LIMITS, SAFETY_CHECKS, SAFETY_REVIEW_STATE_LABEL, UNIVERSAL_
 import { ASSEMBLY_MICROCOPY } from '../../data/promptAssembly';
 import { sharedContent } from '../../data/sharedContent';
 import { JOURNEYS } from '../../app/registry';
-import { journeyHash, navigate } from '../../app/router';
+import { chapterHash, journeyHash, navigate } from '../../app/router';
 import { assembled, layerState, useApp } from '../../app/state';
 import { fill } from '../../app/promptFiles';
 import { ConfirmDialog, ModeText, PageTitle, StatusPill } from '../common/Common';
@@ -166,13 +166,22 @@ export default function CompletionSummary({ journey }: { journey: JourneyId }) {
         <button type="button" className="btn btn--ghost" onClick={() => setConfirm(true)}>
           {mc.buildAnotherPrompt}
         </button>
-        {next && (
+        {next ? (
           <a className="btn btn--primary" href={journeyHash(next.id)}>
             {fill(mc.continueToNextBurger, { burger: next.burgerName })}
           </a>
+        ) : (
+          <>
+            <a className="btn btn--ghost" href="#/">
+              {mc.chooseBurger}
+            </a>
+            <a className="btn btn--primary" href={chapterHash('case-study')}>
+              {cs.actions.find((x) => /case study/i.test(x)) ?? 'See the case study'}
+            </a>
+          </>
         )}
       </div>
-      {next && <p className="finish__pitch">{cs.nextJourneyPitch}</p>}
+      <p className="finish__pitch">{cs.nextJourneyPitch}</p>
 
       <SaveControls />
 

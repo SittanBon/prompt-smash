@@ -119,7 +119,7 @@ export const REVIEW_SCREEN_COPY = {
     'BITE is your own test bite before you hand the prompt to the AI. Four quick checks show whether anything important is missing. Fix anything marked Needs attention, then continue.',
   biteNext: 'Next: the responsible-AI review asks what could still go wrong when this prompt is used.',
   reviewIntro:
-    'Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then copy or download your prompt.',
+    'Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then practise if you like, and copy or download your prompt at the Finish step.',
 } as const;
 
 /** Evaluation scale used in every evaluation plan (deliberately coarse — no fake precision). */

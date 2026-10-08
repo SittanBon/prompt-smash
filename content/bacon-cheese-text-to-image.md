@@ -953,7 +953,7 @@ Expected result checks the image’s shape and the things that must stay out.
 
 ## Responsible-AI review
 
-*Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then copy or download your prompt.*
+*Your prompt is clear. Now check what could still go wrong. For each of the five checks, add an action or mark it Not relevant with a reason. Then practise if you like, and copy or download your prompt at the Finish step.*
 
 *Reviewed means you considered the issue. It does not guarantee that the prompt or its result is safe.*
 

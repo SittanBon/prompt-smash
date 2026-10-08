@@ -747,12 +747,12 @@ export const crispyChicken: JourneyContentStrict = {
       {
         version: 'V3.1',
         promptChange:
-          'One rule line in Rules and Boundaries now also covers health details; nothing else changed for the retest. Separately, after the editorial reviews, three lines moved between layers without changing what they ask (length limits and the sample count into Requirements; evidence wording out of Style). The prompt shown is that final wording.',
+          'One rule line in Rules and Boundaries now also covers health details; nothing else changed for the retest. Separately, three lines were later moved between layers without changing what they ask (length limits and the sample count into Requirements; evidence wording out of Style). The prompt shown is that final wording.',
         changedLayers: ['rules', 'requirements', 'style', 'format'],
         why: 'Testing V3 on personal data showed a customer’s health condition repeated in the issues table.',
         failureAddressed: 'Sensitive details not covered by the privacy rule.',
         illustrativeResult:
-          'On the same personal-data test case, the health condition no longer appeared and was flagged for human review. Two full runs then showed structure and boundaries holding. But one summary said “4 comments” about delivery where its own table showed 3, and the two runs put checkout and delivery first in opposite order. After the reviews, three lines were moved between layers without changing what they ask: the length limits and the sample count went into Requirements. Two full runs of that final wording both stated the count, kept every section and put delivery first. One summary ran to four sentences instead of three.',
+          'On the same personal-data test case, the health condition no longer appeared and was flagged for human review. Two full runs then showed structure and boundaries holding. But one summary said “4 comments” about delivery where its own table showed 3, and the two runs put checkout and delivery first in opposite order. Later, three lines were moved between layers without changing what they ask: the length limits and the sample count went into Requirements. Two full runs of that final wording both stated the count, kept every section and put delivery first. One summary ran to four sentences instead of three.',
         remainingUncertainty:
           'One run per scenario. The first retest still said “a customer with a disability”, so the rule line was refined to describe the reported barrier, not the person; one further retest followed that wording. And the personal data should have been removed before the feedback was sent.',
         evidence: 'observed-in-illustrative-test',

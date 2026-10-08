@@ -1,7 +1,7 @@
 # Prompt Smash! — Content Coverage Matrix
 
 **Purpose:** make missing content obvious. A unit counts as finished **only at ✅ Approved**. A field existing in `src/data/schema.ts` does **not** mean its content exists.
-**Rules:** `CONTENT_CONSTITUTION.md`. **Last updated:** Deadline Numbered Prompt 8 (2026-10-08). The four-journey interface is built. Every unit whose content is reachable and working in the browser is now 🧩 UX integrated. Units already tagged “+ 🧪 tested” now formally count as 🧪 Prompt tested, as the tag rule below says. The exception is Bacon Cheese’s interpretation-only testing, which stays below 🧪 because no image model was run. Final editorial approval is still open for all four journeys.
+**Rules:** `CONTENT_CONSTITUTION.md`. **Last updated:** Deadline content quality gate after Prompt 8 (2026-10-08), with the final two-agent content review passed. Before that: Deadline Numbered Prompt 8 (2026-10-08). The four-journey interface is built. Every unit whose content is reachable and working in the browser is now 🧩 UX integrated. Units already tagged “+ 🧪 tested” now formally count as 🧪 Prompt tested, as the tag rule below says. The exception is Bacon Cheese’s interpretation-only testing, which stays below 🧪 because no image model was run. Final editorial approval is still open for all four journeys.
 
 ## Status pipeline
 
@@ -33,6 +33,16 @@ Each unit moves left to right. Skipping a stage needs the owner's approval.
 The four remaining ⬜ units are the per-journey editorial approvals. They wait for the owner’s visual review of the interface. The one 🛡️ unit is Bacon Cheese’s interpretation-only prompt testing.
 
 **Launch readiness: 5 of 265 units approved. All required content is written, and 260 of 265 units are UX integrated or beyond.**
+
+## Final two-agent content review (2026-10-08)
+
+| Item | Status | Notes |
+|---|---|---|
+| Content Writer reviewed | ✔ Done | All 26 sections were reviewed in the source and in the rendered site. Seven editorial fixes were made: Welcome now teaches instruction, input and output and the Required/Recommended/Optional statuses; the review intro points to Finish; the Hamburger example-result label was fixed; a Chilli Cheese Style point was re-attributed; and internal review wording was removed from the Crispy Chicken V3.1 notes. |
+| Reviewer verdict | ✔ PASS (cycle 2 of 3) | Cycle 1 FAILED on one blocker: the Chilli Cheese Finish screen had no next step. Now fixed: Finish shows the case-study pitch, a “See the case study” link and a “Choose a burger” link. Cycle 2 passed all 26 criteria. |
+| Fifteen handbook objectives | ✔ All 15 confirmed | Confirmed independently by both the Writer and the Reviewer. |
+| UX integration state | 🧩 UX integrated | All chapters and journey steps were checked in the production build: no console errors, no horizontal overflow at 1920×1080 or 390×844, and no placeholder text. The approved logo shows in the navigation. |
+| Owner visual approval | ⬜ Not given | Still open. This review does not stand in for the owner's visual approval. |
 
 Units per burger:
 - Framing: 2
@@ -310,7 +320,7 @@ Source: `src/data/sharedContent.ts`, rendered to `content/shared-handbook.md`.
 | Section | Status | Notes |
 |---|---|---|
 | Homepage hero copy | ✅ Approved | Supplied by the owner (Prompt 3), implemented, and the foundation was approved |
-| Welcome chapter | 🧩 UX integrated | Covers what a prompt is, prompt versus output, Design versus Engineering, why longer is not better, the seven layers, Simple and Pro, the weak-to-better demo and choosing a burger |
+| Welcome chapter | 🧩 UX integrated | Covers what a prompt is, instruction, input and output, Design versus Engineering, why longer is not better, the seven layers and their Required/Recommended/Optional statuses, Simple and Pro, the weak-to-better demo and choosing a burger |
 | Four-burger selector copy (“Best for” lines) | 🧩 UX integrated | Shown on the home-page journey cards and in the welcome chapter |
 | Technique Lab: zero-shot, one-shot, few-shot | 🧩 UX integrated | Written in the Crispy Chicken Technique Lab (Prompt 6) |
 | Technique Lab: other techniques | 🧩 UX integrated | Structured approach, self-consistency, alternative paths, prompt chaining and iterative evaluation (Crispy Chicken pack) |
